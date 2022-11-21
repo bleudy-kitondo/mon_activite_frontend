@@ -6,9 +6,15 @@ import {
   Pressable,
   TextInput,
   Image,
+  SafeAreaView,
+  ScrollView,
 } from 'react-native'
 
 export default function App() {
+  const inscription = () => {
+    alert('inscription reussie !')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.hearder}>
@@ -20,23 +26,54 @@ export default function App() {
           Mon rapport d'activité de predication
         </Text>
       </View>
-      <View>
-        <Text style={styles.title2}>Se connecter</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Nom d'utlisateur "
-        />
-        <TextInput style={styles.input} placeholder="Mot de passe" />
-        <View>
-          <Pressable style={styles.connexion}>
-            <Text style={styles.PressableConnexion}> Connexion</Text>
-          </Pressable>
-          <Pressable style={styles.create}>
-            <Text style={styles.PressableCreate}> creer un compte</Text>
-          </Pressable>
-        </View>
-      </View>
-      <Text style={styles.paragraph}>je suis un admin</Text>
+      <SafeAreaView>
+        <ScrollView style={styles.body}>
+          <Text style={styles.title2}>Inscription</Text>
+          <View style={styles.mainPart}>
+            <View style={styles.containerProfil}>
+              <Image
+                style={styles.profil}
+                source={require('./assets/defaultProfil.png')}
+              />
+            </View>
+            <TextInput
+              style={styles.input}
+              placeholder="Nom d'utlisateur"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Mot de passe"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Confirmenr mot de passe"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Numero de l'assemblée"
+            />
+          </View>
+          <View style={styles.secondPart}>
+            <TextInput style={styles.input} placeholder="Nom" />
+            <TextInput style={styles.input} placeholder="Prenom" />
+            <TextInput style={styles.input} placeholder="Sexe" />
+            <TextInput style={styles.input} placeholder="Telephone" />
+            <TextInput
+              style={styles.input}
+              placeholder="Date de naissance"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Date de bapteme"
+            />
+          </View>
+          <View>
+            <Pressable onPress={inscription} style={styles.create}>
+              <Text style={styles.PressableCreate}>Inscription</Text>
+            </Pressable>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
       <View style={styles.footer}>
         <Image
           style={styles.picture}
@@ -44,7 +81,7 @@ export default function App() {
         />
         <Text style={styles.hearderText}>
           {' '}
-          Copyright ©2022,  by Bleudy TETE
+          Copyright ©2022, by Bleudy TETE
         </Text>
       </View>
     </View>
@@ -58,7 +95,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   input: {
-    marginHorizontal: 40,
+    marginHorizontal: 20,
     marginVertical: 15,
     borderWidth: 1,
     borderColor: '#17144D',
@@ -66,6 +103,7 @@ const styles = StyleSheet.create({
     color: '#17144D',
     borderRadius: 20,
     fontSize: 14,
+    backgroundColor: '#fff',
   },
   connexion: {
     backgroundColor: '#fff',
@@ -92,8 +130,7 @@ const styles = StyleSheet.create({
     color: '#17144D',
     fontSize: 14,
     textAlign: 'center',
-    fontWeight : 'bold',
-
+    fontWeight: 'bold',
   },
   paragraph: {
     marginHorizontal: 40,
@@ -108,13 +145,12 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: 'row',
     width: '100%',
-    marginTop: '57%',
   },
   hearder: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    marginTop: 33,
     alignItems: 'center',
+    paddingTop: 33,
     padding: 10,
     backgroundColor: '#E8E8EA',
   },
@@ -132,6 +168,31 @@ const styles = StyleSheet.create({
     backgroundColor: '#206FAB',
     width: '90%',
     color: '#fff',
-    padding: 20
+    padding: 20,
+  },
+  containerProfil: {
+    width: 100,
+    height: 100,
+    backgroundColor: '#fff',
+    alignSelf: 'center',
+    borderRadius: 100,
+    padding: 10,
+    marginTop: 10,
+  },
+  profil: {
+    height: 80,
+    width: 80,
+    borderRadius: 100,
+  },
+  mainPart: {
+    backgroundColor: '#ECECEE',
+    marginHorizontal: 20,
+  },
+  body: {
+    overflow: 'scroll',
+    height: '81%',
+  },
+  secondPart: {
+    marginHorizontal: 20,
   },
 })
