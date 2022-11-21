@@ -7,47 +7,62 @@ import {
   Image,
 } from 'react-native'
 
-export default function admin() {
+export default function login({ navigation }) {
   const loginAlert = () => {
-    alert('connexion reussie !')
+    alert('login reussie !')
   }
+  const signUpAlert = () => {
+    navigation.navigate('signup')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.hearder}>
         <Image
           style={styles.picture}
-          source={require('./assets/logo.jpg')}
+          source={require('../assets/logo.jpg')}
         />
         <Text style={styles.title}>
           Mon rapport d'activité de predication
         </Text>
       </View>
       <View>
-        <Text style={styles.title2}>Page Admin</Text>
+        <Text style={styles.title2}>Se connecter</Text>
         <TextInput
           style={styles.input}
-          placeholder="Nom d'utlisateur "
           placeholderTextColor="#17144D"
+          placeholder="Nom d'utlisateur "
           maxLength={20}
-          // autoFocus
         />
         <TextInput
+          style={styles.input}
+          placeholder="Mot de passe"
+          placeholderTextColor="#17144D"
           secureTextEntry
           autoCorrect={false}
-          style={styles.input}
-          placeholderTextColor="#17144D"
-          placeholder="Mot de passe"
         />
         <View>
-          <Pressable onPress={loginAlert} style={styles.connexion}>
+          <Pressable onPress={loginAlert} style={styles.login}>
             <Text style={styles.Pressablelogin}> Connexion</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => navigation.navigate('Signup')}
+            style={styles.create}>
+            <Text style={styles.PressableCreate}>
+              creer un compte
+            </Text>
           </Pressable>
         </View>
       </View>
+      <Text
+        onPress={() => navigation.navigate('Admin')}
+        style={styles.paragraph}>
+        je suis un admin
+      </Text>
       <View style={styles.footer}>
         <Image
           style={styles.picture}
-          source={require('./assets/jw.png')}
+          source={require('../assets/jw.png')}
         />
         <Text style={styles.hearderText}>
           {' '}
@@ -72,9 +87,9 @@ const styles = StyleSheet.create({
     padding: 15,
     color: '#17144D',
     borderRadius: 20,
-    fontSize: 14,
+    fontSize: 16,
   },
-  connexion: {
+  login: {
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#17144D',
@@ -92,19 +107,20 @@ const styles = StyleSheet.create({
   },
   PressableCreate: {
     color: '#fff',
-    fontSize: 14,
+    fontSize: 16,
+    fontWeight: 'bold',
     textAlign: 'center',
   },
   Pressablelogin: {
     color: '#17144D',
-    fontSize: 14,
+    fontSize: 16,
     textAlign: 'center',
     fontWeight: 'bold',
   },
   paragraph: {
     marginHorizontal: 40,
     marginVertical: 15,
-    fontSize: 16,
+    fontSize: 18,
     color: '#17144D',
   },
   picture: {
@@ -114,7 +130,7 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: 'row',
     width: '100%',
-    marginTop: '90%',
+    marginTop: '57%',
   },
   hearder: {
     flexDirection: 'row',

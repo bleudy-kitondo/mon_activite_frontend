@@ -19,7 +19,7 @@ export default function signUp() {
       <View style={styles.hearder}>
         <Image
           style={styles.picture}
-          source={require('./assets/logo.jpg')}
+          source={require('../assets/logo.jpg')}
         />
         <Text style={styles.title}>
           Mon rapport d'activité de predication
@@ -32,7 +32,7 @@ export default function signUp() {
             <View style={styles.containerProfil}>
               <Image
                 style={styles.profil}
-                source={require('./assets/defaultProfil.png')}
+                source={require('../assets/defaultProfil.png')}
               />
             </View>
             <TextInput
@@ -123,7 +123,7 @@ export default function signUp() {
       <View style={styles.footer}>
         <Image
           style={styles.picture}
-          source={require('./assets/jw.png')}
+          source={require('../assets/jw.png')}
         />
         <Text style={styles.hearderText}>
           {' '}
