@@ -11,9 +11,6 @@ export default function login({ navigation }) {
   const loginAlert = () => {
     alert('login reussie !')
   }
-  const signUpAlert = () => {
-    navigation.navigate('signup')
-  }
 
   return (
     <View style={styles.container}>
@@ -130,7 +127,7 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: 'row',
     width: '100%',
-    marginTop: '57%',
+    marginTop: '56%',
   },
   hearder: {
     flexDirection: 'row',

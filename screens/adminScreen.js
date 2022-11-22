@@ -1,3 +1,5 @@
+import AntDesign from '@expo/vector-icons/AntDesign'
+
 import {
   StyleSheet,
   Text,
@@ -7,7 +9,7 @@ import {
   Image,
 } from 'react-native'
 
-export default function admin() {
+export default function admin({ navigation }) {
   const loginAlert = () => {
     alert('connexion reussie !')
   }
@@ -23,7 +25,16 @@ export default function admin() {
         </Text>
       </View>
       <View>
-        <Text style={styles.title2}>Page Admin</Text>
+        <View style={{ flexDirection: 'row' }}>
+          <AntDesign
+            style={styles.icon}
+            name="left"
+            size={32}
+            color="#206FAB"
+            onPress={() => navigation.navigate('Login')}
+          />
+          <Text style={styles.title2}>Page admin</Text>
+        </View>
         <TextInput
           style={styles.input}
           placeholder="Nom d'utlisateur "
@@ -50,7 +61,6 @@ export default function admin() {
           source={require('../assets/jw.png')}
         />
         <Text style={styles.hearderText}>
-          {' '}
           Copyright ©2022, by Bleudy TETE
         </Text>
       </View>
@@ -90,22 +100,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 40,
     marginVertical: 15,
   },
-  PressableCreate: {
-    color: '#fff',
-    fontSize: 14,
-    textAlign: 'center',
-  },
   Pressablelogin: {
     color: '#17144D',
     fontSize: 14,
     textAlign: 'center',
     fontWeight: 'bold',
-  },
-  paragraph: {
-    marginHorizontal: 40,
-    marginVertical: 15,
-    fontSize: 16,
-    color: '#17144D',
   },
   picture: {
     height: 66,
@@ -133,11 +132,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 30,
     marginVertical: 40,
+    width: '50%',
   },
   hearderText: {
     backgroundColor: '#206FAB',
     width: '90%',
     color: '#fff',
     padding: 20,
+  },
+  icon: {
+    textAlign: 'center',
+    fontSize: 30,
+    marginVertical: 40,
+    width: '25%',
   },
 })

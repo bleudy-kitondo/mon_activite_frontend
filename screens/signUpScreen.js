@@ -1,3 +1,5 @@
+import AntDesign from '@expo/vector-icons/AntDesign'
+
 import {
   StyleSheet,
   Text,
@@ -9,7 +11,7 @@ import {
   ScrollView,
 } from 'react-native'
 
-export default function signUp() {
+export default function signUp({ navigation }) {
   const loginAlert = () => {
     alert('inscription reussie !')
   }
@@ -27,7 +29,16 @@ export default function signUp() {
       </View>
       <SafeAreaView>
         <ScrollView style={styles.body}>
-          <Text style={styles.title2}>Inscription</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <AntDesign
+              style={styles.icon}
+              name="left"
+              size={32}
+              color="#206FAB"
+              onPress={() => navigation.navigate('Login')}
+            />
+            <Text style={styles.title2}>Inscription</Text>
+          </View>
           <View style={styles.mainPart}>
             <View style={styles.containerProfil}>
               <Image
@@ -52,7 +63,6 @@ export default function signUp() {
             <TextInput
               style={styles.input}
               placeholderTextColor="#17144D"
-              maxLength={20}
               autoCorrect={false}
               secureTextEntry
               placeholder="Confirmenr mot de passe"
@@ -60,7 +70,7 @@ export default function signUp() {
             <TextInput
               style={styles.input}
               placeholderTextColor="#17144D"
-              maxLength={20}
+              maxLength={5}
               autoCorrect={false}
               keyboardType="numeric"
               placeholder="Numero de l'assemblée"
@@ -99,7 +109,7 @@ export default function signUp() {
             <TextInput
               style={styles.input}
               placeholderTextColor="#17144D"
-              maxLength={10}
+              maxLength={8}
               autoCorrect={false}
               keyboardType="numeric"
               placeholder="Date de naissance"
@@ -107,7 +117,7 @@ export default function signUp() {
             <TextInput
               style={styles.input}
               placeholderTextColor="#17144D"
-              maxLength={10}
+              maxLength={8}
               autoCorrect={false}
               placeholder="Date de bapteme"
               keyboardType="numeric"
@@ -151,15 +161,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: '#fff',
   },
-  connexion: {
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#17144D',
-    padding: 15,
-    borderRadius: 20,
-    marginHorizontal: 40,
-    marginVertical: 15,
-  },
   create: {
     backgroundColor: '#17144D',
     padding: 15,
@@ -172,17 +173,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     fontWeight: 'bold',
-  },
-  PressableConnexion: {
-    color: '#17144D',
-    fontSize: 30,
-    textAlign: 'center',
-  },
-  paragraph: {
-    marginHorizontal: 40,
-    marginVertical: 15,
-    fontSize: 16,
-    color: '#17144D',
   },
   picture: {
     height: 66,
@@ -209,6 +199,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 30,
     marginVertical: 40,
+    width: '50%',
   },
   hearderText: {
     backgroundColor: '#206FAB',
@@ -236,10 +227,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   body: {
-    overflow: 'scroll',
     height: '81%',
   },
   secondPart: {
     marginHorizontal: 20,
+  },
+  icon: {
+    textAlign: 'center',
+    fontSize: 30,
+    marginVertical: 40,
+    width: '25%',
   },
 })
