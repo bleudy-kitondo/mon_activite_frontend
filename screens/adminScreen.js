@@ -133,6 +133,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginVertical: 40,
     width: '50%',
+    color: '#17144D',
   },
   hearderText: {
     backgroundColor: '#206FAB',

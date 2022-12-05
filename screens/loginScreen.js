@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   StyleSheet,
   Text,
@@ -8,9 +9,11 @@ import {
 } from 'react-native'
 
 export default function login({ navigation }) {
-  const loginAlert = () => {
-    alert('login reussie !')
-  }
+  const [name, setName] = useState(''),
+    [password, setPassword] = useState(''),
+    loginAlert = () => {
+      alert(name + password)
+    }
 
   return (
     <View style={styles.container}>
@@ -30,12 +33,14 @@ export default function login({ navigation }) {
           placeholderTextColor="#17144D"
           placeholder="Nom d'utlisateur "
           maxLength={20}
+          onChangeText={text => setName(text)}
         />
         <TextInput
           style={styles.input}
           placeholder="Mot de passe"
           placeholderTextColor="#17144D"
           secureTextEntry
+          onChangeText={text => setPassword(text)}
           autoCorrect={false}
         />
         <View>
@@ -72,6 +77,8 @@ export default function login({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
+    // height: '100vh',
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#fff',
@@ -146,6 +153,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 30,
     marginVertical: 40,
+    color: '#17144D',
   },
   hearderText: {
     backgroundColor: '#206FAB',

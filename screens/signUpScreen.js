@@ -1,5 +1,7 @@
 import AntDesign from '@expo/vector-icons/AntDesign'
-
+import * as ImagePicker from 'expo-image-picker'
+import { Constants } from 'expo-constants'
+import { useState, useEffect } from 'react'
 import {
   StyleSheet,
   Text,
@@ -9,11 +11,33 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
+  Platform,
 } from 'react-native'
+// import { launchCamera } from 'react-native-image-picker'
+
+const options = {
+  allowsEditing: true,
+  mediaType: ImagePicker.MediaTypeOptions.All,
+  aspect: [4, 3],
+  quality: 1,
+}
 
 export default function signUp({ navigation }) {
-  const loginAlert = () => {
-    alert('inscription reussie !')
+  const [image, setImage] = useState(
+    require('../assets/defaultProfil.png'),
+  )
+  useEffect(async () => {
+    if (Platform.OS !== 'web') {
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync()
+      if (status !== 'granted') {
+        alert('no permission')
+      }
+    }
+  }, [])
+  const openGallery = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync(options)
+    if (!result.canceled) setImage(result.assets[0].uri)
   }
 
   return (
@@ -41,10 +65,12 @@ export default function signUp({ navigation }) {
           </View>
           <View style={styles.mainPart}>
             <View style={styles.containerProfil}>
-              <Image
-                style={styles.profil}
-                source={require('../assets/defaultProfil.png')}
-              />
+              {image && (
+                <Image style={styles.profil} source={{uri:image} || image} />
+              )}
+              <Pressable onPress={openGallery}>
+                <Text>+</Text>
+              </Pressable>
             </View>
             <TextInput
               style={styles.input}
@@ -72,7 +98,7 @@ export default function signUp({ navigation }) {
               placeholderTextColor="#17144D"
               maxLength={5}
               autoCorrect={false}
-              keyboardType="numeric"
+              keyboardType="dateTime"
               placeholder="Numero de l'assemblée"
             />
           </View>
@@ -124,7 +150,9 @@ export default function signUp({ navigation }) {
             />
           </View>
           <View>
-            <Pressable onPress={loginAlert} style={styles.create}>
+            <Pressable
+              // onPress={() => navigation.navigate('Userhome')}
+              style={styles.create}>
               <Text style={styles.PressableCreate}>Inscription</Text>
             </Pressable>
           </View>
@@ -197,6 +225,7 @@ const styles = StyleSheet.create({
   },
   title2: {
     textAlign: 'center',
+    color: '#17144D',
     fontSize: 30,
     marginVertical: 40,
     width: '50%',
