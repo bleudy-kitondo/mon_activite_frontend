@@ -1,6 +1,6 @@
 import AntDesign from '@expo/vector-icons/AntDesign'
 import * as ImagePicker from 'expo-image-picker'
-import { Constants } from 'expo-constants'
+// import { Constants } from 'expo-constants'
 import { useState, useEffect } from 'react'
 import {
   StyleSheet,
@@ -13,7 +13,6 @@ import {
   ScrollView,
   Platform,
 } from 'react-native'
-// import { launchCamera } from 'react-native-image-picker'
 
 const options = {
   allowsEditing: true,
@@ -23,9 +22,19 @@ const options = {
 }
 
 export default function signUp({ navigation }) {
-  const [image, setImage] = useState(
-    require('../assets/defaultProfil.png'),
-  )
+  const [userName, setUserName] = useState(''),
+    [password, setPassword] = useState(''),
+    [confirmPassword, setConfirmPassword] = useState(''),
+    [numberOfCongreg, setNumberOfCongreg] = useState(''),
+    [name, setName] = useState(''),
+    [lastName, setLastName] = useState(''),
+    [sex, setSex] = useState(''),
+    [phoneNumber, setPhoneNumber] = useState(''),
+    [birthYear, setBirthYear] = useState(''),
+    [baptismalYear, setBaptismalYear] = useState(''),
+    [image, setImage] = useState(
+      require('../assets/defaultProfil.png'),
+    )
   useEffect(async () => {
     if (Platform.OS !== 'web') {
       const { status } =
@@ -38,6 +47,29 @@ export default function signUp({ navigation }) {
   const openGallery = async () => {
     let result = await ImagePicker.launchImageLibraryAsync(options)
     if (!result.canceled) setImage(result.assets[0].uri)
+  }
+  function submit() {
+    alert(
+      userName +
+        ' ' +
+        password +
+        ' ' +
+        confirmPassword +
+        ' ' +
+        numberOfCongreg +
+        ' ' +
+        name +
+        ' ' +
+        lastName +
+        ' ' +
+        phoneNumber +
+        ' ' +
+        sex +
+        ' ' +
+        baptismalYear +
+        ' ' +
+        birthYear,
+    )
   }
 
   return (
@@ -66,7 +98,7 @@ export default function signUp({ navigation }) {
           <View style={styles.mainPart}>
             <View style={styles.containerProfil}>
               {image && (
-                <Image style={styles.profil} source={{uri:image} || image} />
+                <Image style={styles.profil} source={image} />
               )}
               <Pressable onPress={openGallery}>
                 <Text>+</Text>
@@ -78,6 +110,7 @@ export default function signUp({ navigation }) {
               maxLength={20}
               autoCorrect={false}
               placeholder="Nom d'utlisateur"
+              onChangeText={text => setUserName(text)}
             />
             <TextInput
               style={styles.input}
@@ -85,6 +118,7 @@ export default function signUp({ navigation }) {
               secureTextEntry
               autoCorrect={false}
               placeholder="Mot de passe"
+              onChangeText={text => setPassword(text)}
             />
             <TextInput
               style={styles.input}
@@ -92,6 +126,7 @@ export default function signUp({ navigation }) {
               autoCorrect={false}
               secureTextEntry
               placeholder="Confirmenr mot de passe"
+              onChangeText={text => setConfirmPassword(text)}
             />
             <TextInput
               style={styles.input}
@@ -100,6 +135,7 @@ export default function signUp({ navigation }) {
               autoCorrect={false}
               keyboardType="dateTime"
               placeholder="Numero de l'assemblée"
+              onChangeText={text => setNumberOfCongreg(text)}
             />
           </View>
           <View style={styles.secondPart}>
@@ -109,6 +145,7 @@ export default function signUp({ navigation }) {
               maxLength={20}
               autoCorrect={false}
               placeholder="Nom"
+              onChangeText={text => setName(text)}
             />
             <TextInput
               style={styles.input}
@@ -116,6 +153,7 @@ export default function signUp({ navigation }) {
               maxLength={20}
               autoCorrect={false}
               placeholder="Prenom"
+              onChangeText={text => setLastName(text)}
             />
             <TextInput
               style={styles.input}
@@ -123,6 +161,7 @@ export default function signUp({ navigation }) {
               maxLength={1}
               autoCorrect={false}
               placeholder="Sexe"
+              onChangeText={text => setSex(text)}
             />
             <TextInput
               placeholderTextColor="#17144D"
@@ -131,6 +170,7 @@ export default function signUp({ navigation }) {
               style={styles.input}
               keyboardType="numeric"
               placeholder="Telephone"
+              onChangeText={text => setPhoneNumber(text)}
             />
             <TextInput
               style={styles.input}
@@ -139,6 +179,7 @@ export default function signUp({ navigation }) {
               autoCorrect={false}
               keyboardType="numeric"
               placeholder="Date de naissance"
+              onChangeText={text => setBirthYear(text)}
             />
             <TextInput
               style={styles.input}
@@ -147,11 +188,13 @@ export default function signUp({ navigation }) {
               autoCorrect={false}
               placeholder="Date de bapteme"
               keyboardType="numeric"
+              onChangeText={text => setBaptismalYear(text)}
             />
           </View>
           <View>
             <Pressable
               // onPress={() => navigation.navigate('Userhome')}
+              onPress={submit}
               style={styles.create}>
               <Text style={styles.PressableCreate}>Inscription</Text>
             </Pressable>
