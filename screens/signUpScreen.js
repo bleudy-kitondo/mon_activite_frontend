@@ -1,6 +1,5 @@
 import AntDesign from '@expo/vector-icons/AntDesign'
 import * as ImagePicker from 'expo-image-picker'
-// import { Constants } from 'expo-constants'
 import { useState, useEffect } from 'react'
 import {
   StyleSheet,
@@ -21,7 +20,7 @@ const options = {
   quality: 1,
 }
 
-export default function signUp({ navigation }) {
+export default function SignUp({ navigation }) {
   const [userName, setUserName] = useState(''),
     [password, setPassword] = useState(''),
     [confirmPassword, setConfirmPassword] = useState(''),
@@ -35,7 +34,7 @@ export default function signUp({ navigation }) {
     [image, setImage] = useState(
       require('../assets/defaultProfil.png'),
     )
-  useEffect(async () => {
+  const CheckPlatform = async () => {
     if (Platform.OS !== 'web') {
       const { status } =
         await ImagePicker.requestMediaLibraryPermissionsAsync()
@@ -43,10 +42,14 @@ export default function signUp({ navigation }) {
         alert('no permission')
       }
     }
+  }
+  useEffect(() => {
+    CheckPlatform()
   }, [])
+
   const openGallery = async () => {
     let result = await ImagePicker.launchImageLibraryAsync(options)
-    if (!result.canceled) setImage(result.assets[0].uri)
+    if (!result.canceled) setImage({ uri: result.assets[0].uri })
   }
   function submit() {
     alert(
@@ -101,7 +104,11 @@ export default function signUp({ navigation }) {
                 <Image style={styles.profil} source={image} />
               )}
               <Pressable onPress={openGallery}>
-                <Text>+</Text>
+                <AntDesign
+                  name="plussquare"
+                  size={30}
+                  color="#206FAB"
+                />
               </Pressable>
             </View>
             <TextInput
@@ -280,6 +287,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   containerProfil: {
+    position: 'relative',
     width: 100,
     height: 100,
     backgroundColor: '#fff',
@@ -287,6 +295,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     padding: 10,
     marginTop: 10,
+    marginBottom: 20,
   },
   profil: {
     height: 80,

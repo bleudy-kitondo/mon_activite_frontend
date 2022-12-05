@@ -1,7 +1,7 @@
-import login from './screens/loginScreen'
-import admin from './screens/adminScreen'
-import signUp from './screens/signUpScreen'
-import userHome from './screens/userHomeScreen'
+import Login from './screens/loginScreen'
+import Admin from './screens/adminScreen'
+import SignUp from './screens/signUpScreen'
+import UserHome from './screens/userHomeScreen'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
@@ -14,10 +14,10 @@ export default function App() {
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="Login" component={login} />
-        <Stack.Screen name="Admin" component={admin} />
-        <Stack.Screen name="Signup" component={signUp} />
-        <Stack.Screen name="Userhome" component={userHome} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Admin" component={Admin} />
+        <Stack.Screen name="Signup" component={SignUp} />
+        <Stack.Screen name="Userhome" component={UserHome} />
       </Stack.Navigator>
     </NavigationContainer>
   )

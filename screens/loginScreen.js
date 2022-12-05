@@ -8,7 +8,7 @@ import {
   Image,
 } from 'react-native'
 
-export default function login({ navigation }) {
+export default function Login({ navigation }) {
   const [name, setName] = useState(''),
     [password, setPassword] = useState(''),
     loginAlert = () => {

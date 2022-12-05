@@ -9,7 +9,7 @@ import {
   Image,
 } from 'react-native'
 
-export default function admin({ navigation }) {
+export default function Admin({ navigation }) {
   const [name, setName] = useState(''),
     [password, setPassword] = useState(''),
     submit = () => {
