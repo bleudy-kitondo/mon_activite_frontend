@@ -1,5 +1,5 @@
 import AntDesign from '@expo/vector-icons/AntDesign'
-
+import { useState } from 'react'
 import {
   StyleSheet,
   Text,
@@ -10,9 +10,11 @@ import {
 } from 'react-native'
 
 export default function admin({ navigation }) {
-  const loginAlert = () => {
-    alert('connexion reussie !')
-  }
+  const [name, setName] = useState(''),
+    [password, setPassword] = useState(''),
+    submit = () => {
+      alert(name + password)
+    }
   return (
     <View style={styles.container}>
       <View style={styles.hearder}>
@@ -40,6 +42,7 @@ export default function admin({ navigation }) {
           placeholder="Nom d'utlisateur "
           placeholderTextColor="#17144D"
           maxLength={20}
+          onChangeText={text => setName(text)}
           // autoFocus
         />
         <TextInput
@@ -48,9 +51,10 @@ export default function admin({ navigation }) {
           style={styles.input}
           placeholderTextColor="#17144D"
           placeholder="Mot de passe"
+          onChangeText={text => setPassword(text)}
         />
         <View>
-          <Pressable onPress={loginAlert} style={styles.connexion}>
+          <Pressable onPress={submit} style={styles.connexion}>
             <Text style={styles.Pressablelogin}> Connexion</Text>
           </Pressable>
         </View>
