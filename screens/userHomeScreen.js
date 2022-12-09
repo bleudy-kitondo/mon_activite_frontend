@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
-import { View, Button, TextInput, StyleSheet } from 'react-native'
+import { View, Button, TextInput, StyleSheet, Text } from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
 
 export default function ShareExample() {
-  const [date, SetDate] = useState('salut')
-  const [isDatePickerVisible, setDatePickerVisibility] =
-    useState(false)
+  const [date, SetDate] = useState(Date())
+  let tempDate = new Date(date)
+
+  let formatDate =
+    tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear()
+
+  console.log('date :', formatDate)
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false)
 
   const showDatePicker = () => {
     setDatePickerVisibility(true)
@@ -24,11 +29,7 @@ export default function ShareExample() {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.textInput}
-        value={date}
-        placeholder="Date..."
-      />
+      <TextInput style={styles.textInput} value={formatDate} placeholder="Date..." />
       <Button onPress={showDatePicker} title="Set Date" />
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
@@ -36,6 +37,7 @@ export default function ShareExample() {
         onConfirm={confirmDate}
         onCancel={hideDatePicker}
       />
+      <Text>{`votre age :${formatDate}`}</Text>
     </View>
   )
 }

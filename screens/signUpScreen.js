@@ -1,4 +1,6 @@
 import AntDesign from '@expo/vector-icons/AntDesign'
+import DateTimePickerModal from 'react-native-modal-datetime-picker'
+import { MaterialIcons } from '@expo/vector-icons'
 import * as ImagePicker from 'expo-image-picker'
 import { useState, useEffect } from 'react'
 import {
@@ -31,13 +33,16 @@ export default function SignUp({ navigation }) {
     [phoneNumber, setPhoneNumber] = useState(''),
     [birthYear, setBirthYear] = useState(''),
     [baptismalYear, setBaptismalYear] = useState(''),
-    [image, setImage] = useState(
-      require('../assets/defaultProfil.png'),
-    )
+    [picture, setPicture] = useState(require('../assets/defaultProfil.png')),
+    [DatePickerVisibleBirthYear, setDatePickerVisibilityBirthYear] = useState(false),
+    [DatePickerVisibleBaptismalYear, setDatePickerVisibilityBaptismalYear] =
+      useState(false),
+    BirthYear = 'Date de naissance',
+    BaptismalYear = 'Date de bapteme'
+
   const CheckPlatform = async () => {
     if (Platform.OS !== 'web') {
-      const { status } =
-        await ImagePicker.requestMediaLibraryPermissionsAsync()
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
       if (status !== 'granted') {
         alert('no permission')
       }
@@ -47,10 +52,47 @@ export default function SignUp({ navigation }) {
     CheckPlatform()
   }, [])
 
+  let tempBirthYear = new Date(birthYear)
+  let tempBaptismalYear = new Date(baptismalYear)
+
+  let formatBirthYear =
+    tempBirthYear.getDate() +
+    '-' +
+    (tempBirthYear.getMonth() + 1) +
+    '-' +
+    tempBirthYear.getFullYear()
+
+  let formatBaptismalYear =
+    tempBaptismalYear.getDate() +
+    '-' +
+    (tempBaptismalYear.getMonth() + 1) +
+    '-' +
+    tempBaptismalYear.getFullYear()
+
+  const showBirthYearPicker = () => {
+    setDatePickerVisibilityBirthYear(true)
+  }
+  const showBaptismalYearPicker = () => {
+    setDatePickerVisibilityBaptismalYear(true)
+  }
+  const hideDatePicker = () => {
+    setDatePickerVisibilityBaptismalYear(false)
+    setDatePickerVisibilityBirthYear(false)
+  }
+  const confirmBirthYear = date => {
+    setBirthYear(date)
+    hideDatePicker()
+  }
+  const confirmBaptismalYear = date => {
+    setBaptismalYear(date)
+    hideDatePicker()
+  }
+
   const openGallery = async () => {
     let result = await ImagePicker.launchImageLibraryAsync(options)
-    if (!result.canceled) setImage({ uri: result.assets[0].uri })
+    if (!result.canceled) setPicture({ uri: result.assets[0].uri })
   }
+
   function submit() {
     alert(
       userName +
@@ -69,22 +111,17 @@ export default function SignUp({ navigation }) {
         ' ' +
         sex +
         ' ' +
-        baptismalYear +
+        formatBaptismalYear +
         ' ' +
-        birthYear,
+        formatBirthYear,
     )
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.hearder}>
-        <Image
-          style={styles.picture}
-          source={require('../assets/logo.jpg')}
-        />
-        <Text style={styles.title}>
-          Mon rapport d'activité de predication
-        </Text>
+        <Image style={styles.picture} source={require('../assets/logo.jpg')} />
+        <Text style={styles.title}>Mon rapport d'activité de predication</Text>
       </View>
       <SafeAreaView>
         <ScrollView style={styles.body}>
@@ -100,15 +137,9 @@ export default function SignUp({ navigation }) {
           </View>
           <View style={styles.mainPart}>
             <View style={styles.containerProfil}>
-              {image && (
-                <Image style={styles.profil} source={image} />
-              )}
+              {picture && <Image style={styles.profil} source={picture} />}
               <Pressable onPress={openGallery}>
-                <AntDesign
-                  name="plussquare"
-                  size={30}
-                  color="#206FAB"
-                />
+                <AntDesign name="plussquare" size={30} color="#206FAB" />
               </Pressable>
             </View>
             <TextInput
@@ -138,9 +169,9 @@ export default function SignUp({ navigation }) {
             <TextInput
               style={styles.input}
               placeholderTextColor="#17144D"
-              maxLength={5}
+              maxLength={10}
               autoCorrect={false}
-              keyboardType="dateTime"
+              keyboardType="numeric"
               placeholder="Numero de l'assemblée"
               onChangeText={text => setNumberOfCongreg(text)}
             />
@@ -179,24 +210,30 @@ export default function SignUp({ navigation }) {
               placeholder="Telephone"
               onChangeText={text => setPhoneNumber(text)}
             />
-            <TextInput
-              style={styles.input}
-              placeholderTextColor="#17144D"
-              maxLength={8}
-              autoCorrect={false}
-              keyboardType="numeric"
-              placeholder="Date de naissance"
-              onChangeText={text => setBirthYear(text)}
-            />
-            <TextInput
-              style={styles.input}
-              placeholderTextColor="#17144D"
-              maxLength={8}
-              autoCorrect={false}
-              placeholder="Date de bapteme"
-              keyboardType="numeric"
-              onChangeText={text => setBaptismalYear(text)}
-            />
+            <Pressable style={styles.containerDate} onPress={showBirthYearPicker}>
+              <DateTimePickerModal
+                isVisible={DatePickerVisibleBirthYear}
+                mode="date"
+                onConfirm={confirmBirthYear}
+                onCancel={hideDatePicker}
+              />
+              <Text style={styles.date}>
+                {birthYear === '' ? BirthYear : formatBirthYear}
+              </Text>
+              <MaterialIcons name="date-range" size={30} color="#17144D" />
+            </Pressable>
+            <Pressable style={styles.containerDate} onPress={showBaptismalYearPicker}>
+              <DateTimePickerModal
+                isVisible={DatePickerVisibleBaptismalYear}
+                mode="date"
+                onConfirm={confirmBaptismalYear}
+                onCancel={hideDatePicker}
+              />
+              <Text style={styles.date}>
+                {baptismalYear === '' ? BaptismalYear : formatBaptismalYear}
+              </Text>
+              <MaterialIcons name="date-range" size={30} color="#17144D" />
+            </Pressable>
           </View>
           <View>
             <Pressable
@@ -209,14 +246,8 @@ export default function SignUp({ navigation }) {
         </ScrollView>
       </SafeAreaView>
       <View style={styles.footer}>
-        <Image
-          style={styles.picture}
-          source={require('../assets/jw.png')}
-        />
-        <Text style={styles.hearderText}>
-          {' '}
-          Copyright ©2022, by Bleudy TETE
-        </Text>
+        <Image style={styles.picture} source={require('../assets/jw.png')} />
+        <Text style={styles.hearderText}> Copyright ©2022, by Bleudy TETE</Text>
       </View>
     </View>
   )
@@ -238,6 +269,23 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     fontSize: 16,
     backgroundColor: '#fff',
+  },
+  containerDate: {
+    flexDirection: 'row',
+    marginHorizontal: 20,
+    marginVertical: 15,
+    borderWidth: 1,
+    borderColor: '#17144D',
+    padding: 10,
+    color: '#17144D',
+    borderRadius: 20,
+    fontSize: 16,
+    backgroundColor: '#fff',
+    justifyContent: 'space-between',
+  },
+  date: {
+    color: '#17144D',
+    fontSize: 16,
   },
   create: {
     backgroundColor: '#17144D',
