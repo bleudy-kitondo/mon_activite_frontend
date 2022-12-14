@@ -2,6 +2,7 @@ import AntDesign from '@expo/vector-icons/AntDesign'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
 import { MaterialIcons } from '@expo/vector-icons'
 import * as ImagePicker from 'expo-image-picker'
+import axios from 'axios'
 import { useState, useEffect } from 'react'
 import {
   StyleSheet,
@@ -39,7 +40,7 @@ export default function SignUp({ navigation }) {
       useState(false),
     BirthYear = 'Date de naissance',
     BaptismalYear = 'Date de bapteme'
-
+  console.log('picture', picture.uri)
   const CheckPlatform = async () => {
     if (Platform.OS !== 'web') {
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
@@ -94,27 +95,47 @@ export default function SignUp({ navigation }) {
   }
 
   function submit() {
-    alert(
-      userName +
-        ' ' +
-        password +
-        ' ' +
-        confirmPassword +
-        ' ' +
-        numberOfCongreg +
-        ' ' +
-        name +
-        ' ' +
-        lastName +
-        ' ' +
-        phoneNumber +
-        ' ' +
-        sex +
-        ' ' +
-        formatBaptismalYear +
-        ' ' +
-        formatBirthYear,
-    )
+    axios
+      .post('http://localhost:8000/api/proclamair/create', {
+        userName,
+        password,
+        numberOfCongreg,
+        name,
+        lastName,
+        phoneNumber,
+        baptismalYear: formatBaptismalYear,
+        birthYear: formatBirthYear,
+        sex,
+        picture: picture.uri,
+      })
+      .then(() => {
+        alert(`succes `)
+      })
+      .catch(err => console.log(`err: ${err}`))
+
+    // alert(
+    //   userName +
+    //     ' ' +
+    //     password +
+    //     ' ' +
+    //     confirmPassword +
+    //     ' ' +
+    //     numberOfCongreg +
+    //     ' ' +
+    //     name +
+    //     ' ' +
+    //     lastName +
+    //     ' ' +
+    //     phoneNumber +
+    //     ' ' +
+    //     sex +
+    //     ' ' +
+    //     formatBaptismalYear +
+    //     ' ' +
+    //     formatBirthYear +
+    //     '' +
+    //     picture,
+    // )
   }
 
   return (
