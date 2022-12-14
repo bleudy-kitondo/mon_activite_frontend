@@ -1,30 +1,23 @@
 import { useState } from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  TextInput,
-  Image,
-} from 'react-native'
+import axios from 'axios'
+import { api } from '../utils/endpoint'
+import { StyleSheet, Text, View, Pressable, TextInput, Image } from 'react-native'
 
 export default function Login({ navigation }) {
   const [name, setName] = useState(''),
     [password, setPassword] = useState(''),
     loginAlert = () => {
-      alert(name + password)
+      axios
+        .get(`${api}/admin/find`)
+        .then(data => console.log(data.data))
+        .catch(err => alert(err))
     }
 
   return (
     <View style={styles.container}>
       <View style={styles.hearder}>
-        <Image
-          style={styles.picture}
-          source={require('../assets/logo.jpg')}
-        />
-        <Text style={styles.title}>
-          Mon rapport d'activité de predication
-        </Text>
+        <Image style={styles.picture} source={require('../assets/logo.jpg')} />
+        <Text style={styles.title}>Mon rapport d'activité de predication</Text>
       </View>
       <View>
         <Text style={styles.title2}>Se connecter</Text>
@@ -47,29 +40,17 @@ export default function Login({ navigation }) {
           <Pressable onPress={loginAlert} style={styles.login}>
             <Text style={styles.Pressablelogin}> Connexion</Text>
           </Pressable>
-          <Pressable
-            onPress={() => navigation.navigate('Signup')}
-            style={styles.create}>
-            <Text style={styles.PressableCreate}>
-              creer un compte
-            </Text>
+          <Pressable onPress={() => navigation.navigate('Signup')} style={styles.create}>
+            <Text style={styles.PressableCreate}>creer un compte</Text>
           </Pressable>
         </View>
       </View>
-      <Text
-        onPress={() => navigation.navigate('Admin')}
-        style={styles.paragraph}>
+      <Text onPress={() => navigation.navigate('Admin')} style={styles.paragraph}>
         je suis un admin
       </Text>
       <View style={styles.footer}>
-        <Image
-          style={styles.picture}
-          source={require('../assets/jw.png')}
-        />
-        <Text style={styles.hearderText}>
-          {' '}
-          Copyright ©2022, by Bleudy TETE
-        </Text>
+        <Image style={styles.picture} source={require('../assets/jw.png')} />
+        <Text style={styles.hearderText}> Copyright ©2022, by Bleudy TETE</Text>
       </View>
     </View>
   )

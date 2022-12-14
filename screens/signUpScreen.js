@@ -2,6 +2,7 @@ import AntDesign from '@expo/vector-icons/AntDesign'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
 import { MaterialIcons } from '@expo/vector-icons'
 import * as ImagePicker from 'expo-image-picker'
+import { createProclamair } from '../utils/endpoint'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import {
@@ -22,6 +23,7 @@ const options = {
   aspect: [4, 3],
   quality: 1,
 }
+console.log(createProclamair)
 
 export default function SignUp({ navigation }) {
   const [userName, setUserName] = useState(''),
@@ -53,50 +55,47 @@ export default function SignUp({ navigation }) {
     CheckPlatform()
   }, [])
 
-  let tempBirthYear = new Date(birthYear)
-  let tempBaptismalYear = new Date(baptismalYear)
-
-  let formatBirthYear =
-    tempBirthYear.getDate() +
-    '-' +
-    (tempBirthYear.getMonth() + 1) +
-    '-' +
-    tempBirthYear.getFullYear()
-
-  let formatBaptismalYear =
-    tempBaptismalYear.getDate() +
-    '-' +
-    (tempBaptismalYear.getMonth() + 1) +
-    '-' +
-    tempBaptismalYear.getFullYear()
+  let tempBirthYear = new Date(birthYear),
+    tempBaptismalYear = new Date(baptismalYear),
+    formatBirthYear =
+      tempBirthYear.getDate() +
+      '-' +
+      (tempBirthYear.getMonth() + 1) +
+      '-' +
+      tempBirthYear.getFullYear(),
+    formatBaptismalYear =
+      tempBaptismalYear.getDate() +
+      '-' +
+      (tempBaptismalYear.getMonth() + 1) +
+      '-' +
+      tempBaptismalYear.getFullYear()
 
   const showBirthYearPicker = () => {
-    setDatePickerVisibilityBirthYear(true)
-  }
-  const showBaptismalYearPicker = () => {
-    setDatePickerVisibilityBaptismalYear(true)
-  }
-  const hideDatePicker = () => {
-    setDatePickerVisibilityBaptismalYear(false)
-    setDatePickerVisibilityBirthYear(false)
-  }
-  const confirmBirthYear = date => {
-    setBirthYear(date)
-    hideDatePicker()
-  }
-  const confirmBaptismalYear = date => {
-    setBaptismalYear(date)
-    hideDatePicker()
-  }
-
-  const openGallery = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync(options)
-    if (!result.canceled) setPicture({ uri: result.assets[0].uri })
-  }
+      setDatePickerVisibilityBirthYear(true)
+    },
+    showBaptismalYearPicker = () => {
+      setDatePickerVisibilityBaptismalYear(true)
+    },
+    hideDatePicker = () => {
+      setDatePickerVisibilityBaptismalYear(false)
+      setDatePickerVisibilityBirthYear(false)
+    },
+    confirmBirthYear = date => {
+      setBirthYear(date)
+      hideDatePicker()
+    },
+    confirmBaptismalYear = date => {
+      setBaptismalYear(date)
+      hideDatePicker()
+    },
+    openGallery = async () => {
+      let result = await ImagePicker.launchImageLibraryAsync(options)
+      if (!result.canceled) setPicture({ uri: result.assets[0].uri })
+    }
 
   function submit() {
     axios
-      .post('http://localhost:8000/api/proclamair/create', {
+      .post(`${createProclamair}`, {
         userName,
         password,
         numberOfCongreg,
@@ -106,36 +105,13 @@ export default function SignUp({ navigation }) {
         baptismalYear: formatBaptismalYear,
         birthYear: formatBirthYear,
         sex,
-        picture: picture.uri,
+        picture: 'test',
       })
-      .then(() => {
-        alert(`succes `)
+      .then(data => {
+        console.log(data.data)
+        alert(`succes`)
       })
       .catch(err => console.log(`err: ${err}`))
-
-    // alert(
-    //   userName +
-    //     ' ' +
-    //     password +
-    //     ' ' +
-    //     confirmPassword +
-    //     ' ' +
-    //     numberOfCongreg +
-    //     ' ' +
-    //     name +
-    //     ' ' +
-    //     lastName +
-    //     ' ' +
-    //     phoneNumber +
-    //     ' ' +
-    //     sex +
-    //     ' ' +
-    //     formatBaptismalYear +
-    //     ' ' +
-    //     formatBirthYear +
-    //     '' +
-    //     picture,
-    // )
   }
 
   return (
@@ -166,7 +142,7 @@ export default function SignUp({ navigation }) {
             <TextInput
               style={styles.input}
               placeholderTextColor="#17144D"
-              maxLength={20}
+              maxLength={40}
               autoCorrect={false}
               placeholder="Nom d'utlisateur"
               onChangeText={text => setUserName(text)}
