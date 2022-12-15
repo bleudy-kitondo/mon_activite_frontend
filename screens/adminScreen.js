@@ -1,30 +1,32 @@
 import AntDesign from '@expo/vector-icons/AntDesign'
+import axios from 'axios'
+import { singinAdmin } from '../utils/endpoint'
 import { useState } from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  TextInput,
-  Image,
-} from 'react-native'
+import { StyleSheet, Text, View, Pressable, TextInput, Image } from 'react-native'
 
 export default function Admin({ navigation }) {
-  const [name, setName] = useState(''),
+  const [userName, setUserName] = useState(''),
     [password, setPassword] = useState(''),
-    submit = () => {
-      alert(name + password)
+    loginAdmin = () => {
+      if (userName !== '' && password !== '') {
+        axios
+          .post(`${singinAdmin}`, {
+            userName,
+            password,
+          })
+          .then(data => {
+            console.log(data.data)
+          })
+          .catch(err => {
+            throw err
+          })
+      }
     }
   return (
     <View style={styles.container}>
       <View style={styles.hearder}>
-        <Image
-          style={styles.picture}
-          source={require('../assets/logo.jpg')}
-        />
-        <Text style={styles.title}>
-          Mon rapport d'activité de predication
-        </Text>
+        <Image style={styles.picture} source={require('../assets/logo.jpg')} />
+        <Text style={styles.title}>Mon rapport d'activité de predication</Text>
       </View>
       <View>
         <View style={{ flexDirection: 'row' }}>
@@ -42,7 +44,7 @@ export default function Admin({ navigation }) {
           placeholder="Nom d'utlisateur "
           placeholderTextColor="#17144D"
           maxLength={20}
-          onChangeText={text => setName(text)}
+          onChangeText={text => setUserName(text)}
           // autoFocus
         />
         <TextInput
@@ -54,19 +56,14 @@ export default function Admin({ navigation }) {
           onChangeText={text => setPassword(text)}
         />
         <View>
-          <Pressable onPress={submit} style={styles.connexion}>
+          <Pressable onPress={loginAdmin} style={styles.connexion}>
             <Text style={styles.Pressablelogin}> Connexion</Text>
           </Pressable>
         </View>
       </View>
       <View style={styles.footer}>
-        <Image
-          style={styles.picture}
-          source={require('../assets/jw.png')}
-        />
-        <Text style={styles.hearderText}>
-          Copyright ©2022, by Bleudy TETE
-        </Text>
+        <Image style={styles.picture} source={require('../assets/jw.png')} />
+        <Text style={styles.hearderText}>Copyright ©2022, by Bleudy TETE</Text>
       </View>
     </View>
   )
