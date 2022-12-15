@@ -23,7 +23,6 @@ const options = {
   aspect: [4, 3],
   quality: 1,
 }
-console.log(createProclamair)
 
 export default function SignUp({ navigation }) {
   const [userName, setUserName] = useState(''),
@@ -41,16 +40,15 @@ export default function SignUp({ navigation }) {
     [DatePickerVisibleBaptismalYear, setDatePickerVisibilityBaptismalYear] =
       useState(false),
     BirthYear = 'Date de naissance',
-    BaptismalYear = 'Date de bapteme'
-  console.log('picture', picture.uri)
-  const CheckPlatform = async () => {
-    if (Platform.OS !== 'web') {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
-      if (status !== 'granted') {
-        alert('no permission')
+    BaptismalYear = 'Date de bapteme',
+    CheckPlatform = async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
+        if (status !== 'granted') {
+          alert('no permission')
+        }
       }
     }
-  }
   useEffect(() => {
     CheckPlatform()
   }, [])
@@ -94,24 +92,40 @@ export default function SignUp({ navigation }) {
     }
 
   function submit() {
-    axios
-      .post(`${createProclamair}`, {
-        userName,
-        password,
-        numberOfCongreg,
-        name,
-        lastName,
-        phoneNumber,
-        baptismalYear: formatBaptismalYear,
-        birthYear: formatBirthYear,
-        sex,
-        picture: 'test',
-      })
-      .then(data => {
-        console.log(data.data)
-        alert(`succes`)
-      })
-      .catch(err => console.log(`err: ${err}`))
+    if (
+      userName !== '' &&
+      password !== '' &&
+      numberOfCongreg !== '' &&
+      name !== '' &&
+      lastName !== '' &&
+      sex !== '' &&
+      confirmPassword !== ''
+    ) {
+      if (password === confirmPassword) {
+        axios
+          .post(`${createProclamair}`, {
+            userName,
+            password,
+            numberOfCongreg,
+            name,
+            lastName,
+            phoneNumber,
+            baptismalYear: formatBaptismalYear,
+            birthYear: formatBirthYear,
+            sex,
+            picture: 'test',
+          })
+          .then(data => {
+            alert(data.data.message)
+            navigation.navigate('Userhome')
+          })
+          .catch(err => console.log(`err: ${err}`))
+      } else {
+        alert('mot de passe different')
+      }
+    } else {
+      alert('remplissez le champ vide')
+    }
   }
 
   return (
@@ -172,8 +186,6 @@ export default function SignUp({ navigation }) {
               placeholder="Numero de l'assemblée"
               onChangeText={text => setNumberOfCongreg(text)}
             />
-          </View>
-          <View style={styles.secondPart}>
             <TextInput
               style={styles.input}
               placeholderTextColor="#17144D"
@@ -231,12 +243,7 @@ export default function SignUp({ navigation }) {
               </Text>
               <MaterialIcons name="date-range" size={30} color="#17144D" />
             </Pressable>
-          </View>
-          <View>
-            <Pressable
-              // onPress={() => navigation.navigate('Userhome')}
-              onPress={submit}
-              style={styles.create}>
+            <Pressable onPress={submit} style={styles.create}>
               <Text style={styles.PressableCreate}>Inscription</Text>
             </Pressable>
           </View>
