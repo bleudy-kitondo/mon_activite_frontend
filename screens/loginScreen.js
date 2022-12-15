@@ -1,16 +1,28 @@
 import { useState } from 'react'
 import axios from 'axios'
-import { api } from '../utils/endpoint'
+import { singInProclamair } from '../utils/endpoint'
 import { StyleSheet, Text, View, Pressable, TextInput, Image } from 'react-native'
 
 export default function Login({ navigation }) {
-  const [name, setName] = useState(''),
+  const [userName, setUserName] = useState(''),
     [password, setPassword] = useState(''),
-    loginAlert = () => {
-      axios
-        .get(`${api}/admin/find`)
-        .then(data => console.log(data.data))
-        .catch(err => alert(err))
+    longinProclamair = () => {
+      if (userName !== '' && password !== '') {
+        axios
+          .post(`${singInProclamair}`, {
+            userName,
+            password,
+          })
+          .then(data => {
+            // setPassword('')
+            // setUserName('')
+            alert(`connexion reussi`)
+            console.log(data.data.token)
+          })
+          .catch(err => alert(err))
+      } else {
+        alert('remplissez les champs vides svp')
+      }
     }
 
   return (
@@ -25,8 +37,8 @@ export default function Login({ navigation }) {
           style={styles.input}
           placeholderTextColor="#17144D"
           placeholder="Nom d'utlisateur "
-          maxLength={20}
-          onChangeText={text => setName(text)}
+          maxLength={40}
+          onChangeText={text => setUserName(text)}
         />
         <TextInput
           style={styles.input}
@@ -37,7 +49,7 @@ export default function Login({ navigation }) {
           autoCorrect={false}
         />
         <View>
-          <Pressable onPress={loginAlert} style={styles.login}>
+          <Pressable onPress={longinProclamair} style={styles.login}>
             <Text style={styles.Pressablelogin}> Connexion</Text>
           </Pressable>
           <Pressable onPress={() => navigation.navigate('Signup')} style={styles.create}>
@@ -59,7 +71,6 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    // height: '100vh',
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#fff',
