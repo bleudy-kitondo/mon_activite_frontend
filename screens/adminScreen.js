@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginHorizontal: 40,
+    backgroundColor:"#fff",
     marginVertical: 15,
     borderWidth: 1,
     borderColor: '#17144D',
