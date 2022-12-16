@@ -3,6 +3,11 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker'
 import { MaterialIcons } from '@expo/vector-icons'
 import * as ImagePicker from 'expo-image-picker'
 import { createProclamair } from '../utils/endpoint'
+import {
+  responsiveScreenHeight,
+  responsiveScreenWidth,
+  responsiveScreenFontSize,
+} from 'react-native-responsive-dimensions'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import {
@@ -131,11 +136,11 @@ export default function SignUp({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.hearder}>
-        <Image style={styles.picture} source={require('../assets/logo.jpg')} />
+        <Image style={styles.picture} source={require('../assets/logo1.png')} />
         <Text style={styles.title}>Mon rapport d'activité de predication</Text>
       </View>
-      <SafeAreaView>
-        <ScrollView style={styles.body}>
+      <SafeAreaView style={styles.body}>
+        <ScrollView>
           <View style={{ flexDirection: 'row' }}>
             <AntDesign
               style={styles.icon}
@@ -261,18 +266,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff',
+    height: responsiveScreenHeight(100),
+    width: responsiveScreenWidth(100),
   },
   input: {
     marginHorizontal: 20,
     marginVertical: 15,
     borderWidth: 1,
     borderColor: '#17144D',
+    backgroundColor: '#fff',
     padding: 15,
     color: '#17144D',
     borderRadius: 20,
-    fontSize: 16,
-    backgroundColor: '#fff',
+    fontSize: responsiveScreenFontSize(2),
   },
   containerDate: {
     flexDirection: 'row',
@@ -283,60 +289,63 @@ const styles = StyleSheet.create({
     padding: 10,
     color: '#17144D',
     borderRadius: 20,
-    fontSize: 16,
+    fontSize: responsiveScreenFontSize(2),
     backgroundColor: '#fff',
     justifyContent: 'space-between',
   },
   date: {
     color: '#17144D',
-    fontSize: 16,
+    fontSize: responsiveScreenFontSize(2),
   },
   create: {
     backgroundColor: '#17144D',
     padding: 15,
     borderRadius: 20,
-    marginHorizontal: 40,
+    marginHorizontal: 20,
     marginVertical: 15,
   },
   PressableCreate: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: responsiveScreenFontSize(2),
     textAlign: 'center',
     fontWeight: 'bold',
   },
   picture: {
-    height: 66,
-    width: 66,
+    height: responsiveScreenHeight(9),
+    width: responsiveScreenWidth(20),
   },
   footer: {
     flexDirection: 'row',
-    width: '100%',
+    height: responsiveScreenHeight(9),
+    width: responsiveScreenWidth(100),
   },
   hearder: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 33,
-    padding: 10,
-    backgroundColor: '#E8E8EA',
+    paddingTop: responsiveScreenHeight(3.2),
+    padding: responsiveScreenHeight(2),
+    backgroundColor: '#206FAB',
+    height: responsiveScreenHeight(12),
+    width: responsiveScreenWidth(100),
   },
   title: {
-    color: '#17144D',
-    fontSize: 24,
-    width: '90%',
+    color: '#E8E8EA',
+    fontSize: responsiveScreenFontSize(3),
+    width: responsiveScreenWidth(80),
   },
   title2: {
-    textAlign: 'center',
-    color: '#17144D',
-    fontSize: 30,
+    fontSize: responsiveScreenFontSize(4),
     marginVertical: 40,
-    width: '50%',
+    marginHorizontal: 20,
+    color: '#17144D',
   },
   hearderText: {
     backgroundColor: '#206FAB',
-    width: '90%',
+    width: responsiveScreenWidth(80),
     color: '#fff',
     padding: 20,
+    fontSize: responsiveScreenFontSize(2),
   },
   containerProfil: {
     position: 'relative',
@@ -360,7 +369,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   body: {
-    height: '81%',
+    height: responsiveScreenHeight(79),
+    width: responsiveScreenWidth(100),
   },
   secondPart: {
     marginHorizontal: 20,

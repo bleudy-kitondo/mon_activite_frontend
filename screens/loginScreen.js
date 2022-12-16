@@ -2,6 +2,11 @@ import { useState } from 'react'
 import axios from 'axios'
 import { singInProclamair } from '../utils/endpoint'
 import { StyleSheet, Text, View, Pressable, TextInput, Image } from 'react-native'
+import {
+  responsiveScreenHeight,
+  responsiveScreenWidth,
+  responsiveScreenFontSize,
+} from 'react-native-responsive-dimensions'
 
 export default function Login({ navigation }) {
   const [userName, setUserName] = useState(''),
@@ -28,10 +33,10 @@ export default function Login({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.hearder}>
-        <Image style={styles.picture} source={require('../assets/logo.jpg')} />
+        <Image style={styles.picture} source={require('../assets/logo1.png')} />
         <Text style={styles.title}>Mon rapport d'activité de predication</Text>
       </View>
-      <View>
+      <View style={styles.body}>
         <Text style={styles.title2}>Se connecter</Text>
         <TextInput
           style={styles.input}
@@ -53,13 +58,13 @@ export default function Login({ navigation }) {
             <Text style={styles.Pressablelogin}> Connexion</Text>
           </Pressable>
           <Pressable onPress={() => navigation.navigate('Signup')} style={styles.create}>
-            <Text style={styles.PressableCreate}>creer un compte</Text>
+            <Text style={styles.PressableCreate}>Creer un compte</Text>
           </Pressable>
         </View>
+        <Text onPress={() => navigation.navigate('Admin')} style={styles.paragraph}>
+          Je suis un admin
+        </Text>
       </View>
-      <Text onPress={() => navigation.navigate('Admin')} style={styles.paragraph}>
-        je suis un admin
-      </Text>
       <View style={styles.footer}>
         <Image style={styles.picture} source={require('../assets/jw.png')} />
         <Text style={styles.hearderText}> Copyright ©2022, by Bleudy TETE</Text>
@@ -70,20 +75,23 @@ export default function Login({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#fff',
+    container: {
+      flex: 1,
+      flexDirection: 'column',
+      height: responsiveScreenHeight(100),
+      width: responsiveScreenWidth(100),
+    },
   },
   input: {
     marginHorizontal: 40,
+    backgroundColor:"#fff",
     marginVertical: 15,
     borderWidth: 1,
     borderColor: '#17144D',
     padding: 15,
     color: '#17144D',
     borderRadius: 20,
-    fontSize: 16,
+    fontSize: responsiveScreenFontSize(2),
   },
   login: {
     backgroundColor: '#fff',
@@ -103,54 +111,61 @@ const styles = StyleSheet.create({
   },
   PressableCreate: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: responsiveScreenFontSize(2),
     fontWeight: 'bold',
     textAlign: 'center',
   },
   Pressablelogin: {
     color: '#17144D',
-    fontSize: 16,
+    fontSize: responsiveScreenFontSize(2),
     textAlign: 'center',
     fontWeight: 'bold',
   },
   paragraph: {
     marginHorizontal: 40,
     marginVertical: 15,
-    fontSize: 18,
+    fontSize: responsiveScreenFontSize(2),
     color: '#17144D',
   },
   picture: {
-    height: 66,
-    width: 66,
+    height: responsiveScreenHeight(9),
+    width: responsiveScreenWidth(20),
   },
   footer: {
     flexDirection: 'row',
-    width: '100%',
-    marginTop: '56%',
+    height: responsiveScreenHeight(9),
+    width: responsiveScreenWidth(100),
   },
   hearder: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 33,
-    padding: 10,
-    backgroundColor: '#E8E8EA',
+    paddingTop: responsiveScreenHeight(3.2),
+    padding: responsiveScreenHeight(2),
+    backgroundColor: '#206FAB',
+    height: responsiveScreenHeight(12),
+    width: responsiveScreenWidth(100),
+  },
+  body: {
+    height: responsiveScreenHeight(79),
+    width: responsiveScreenWidth(100),
   },
   title: {
-    color: '#17144D',
-    fontSize: 24,
-    width: '90%',
+    color: '#E8E8EA',
+    fontSize: responsiveScreenFontSize(3),
+    width: responsiveScreenWidth(80),
   },
   title2: {
     textAlign: 'center',
-    fontSize: 30,
+    fontSize: responsiveScreenFontSize(4),
     marginVertical: 40,
     color: '#17144D',
   },
   hearderText: {
     backgroundColor: '#206FAB',
-    width: '90%',
+    width: responsiveScreenWidth(80),
     color: '#fff',
     padding: 20,
+    fontSize: responsiveScreenFontSize(2),
   },
 })
