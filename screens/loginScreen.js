@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   },
   hearderText: {
     backgroundColor: '#206FAB',
-    width: '90%',
+    width: responsiveScreenWidth(80),
     color: '#fff',
     padding: 20,
     fontSize: responsiveScreenFontSize(2),

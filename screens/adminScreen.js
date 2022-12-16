@@ -1,5 +1,10 @@
 import AntDesign from '@expo/vector-icons/AntDesign'
 import axios from 'axios'
+import {
+  responsiveScreenHeight,
+  responsiveScreenWidth,
+  responsiveScreenFontSize,
+} from 'react-native-responsive-dimensions'
 import { singinAdmin } from '../utils/endpoint'
 import { useState } from 'react'
 import { StyleSheet, Text, View, Pressable, TextInput, Image } from 'react-native'
@@ -25,10 +30,10 @@ export default function Admin({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.hearder}>
-        <Image style={styles.picture} source={require('../assets/logo.jpg')} />
+        <Image style={styles.picture} source={require('../assets/logo1.png')} />
         <Text style={styles.title}>Mon rapport d'activité de predication</Text>
       </View>
-      <View>
+      <View style={styles.body}>
         <View style={{ flexDirection: 'row' }}>
           <AntDesign
             style={styles.icon}
@@ -73,7 +78,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff',
+    height: responsiveScreenHeight(100),
+    width: responsiveScreenWidth(100),
   },
   input: {
     marginHorizontal: 40,
@@ -83,10 +89,10 @@ const styles = StyleSheet.create({
     padding: 15,
     color: '#17144D',
     borderRadius: 20,
-    fontSize: 14,
+    fontSize: responsiveScreenFontSize(2),
   },
   connexion: {
-    backgroundColor: '#fff',
+    backgroundColor: '#17144D',
     borderWidth: 1,
     borderColor: '#17144D',
     padding: 15,
@@ -94,53 +100,52 @@ const styles = StyleSheet.create({
     marginHorizontal: 40,
     marginVertical: 15,
   },
-  create: {
-    backgroundColor: '#17144D',
-    padding: 15,
-    borderRadius: 20,
-    marginHorizontal: 40,
-    marginVertical: 15,
-  },
   Pressablelogin: {
-    color: '#17144D',
-    fontSize: 14,
+    color: '#fff',
+    fontSize: responsiveScreenFontSize(2),
     textAlign: 'center',
     fontWeight: 'bold',
   },
   picture: {
-    height: 66,
-    width: 66,
+    height: responsiveScreenHeight(9),
+    width: responsiveScreenWidth(20),
   },
   footer: {
     flexDirection: 'row',
-    width: '100%',
-    marginTop: '90%',
+    height: responsiveScreenHeight(9),
+    width: responsiveScreenWidth(100),
+  },
+  body: {
+    height: responsiveScreenHeight(79),
+    width: responsiveScreenWidth(100),
   },
   hearder: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 33,
-    padding: 10,
-    backgroundColor: '#E8E8EA',
+    paddingTop: responsiveScreenHeight(3.2),
+    padding: responsiveScreenHeight(2),
+    backgroundColor: '#206FAB',
+    height: responsiveScreenHeight(12),
+    width: responsiveScreenWidth(100),
   },
   title: {
-    color: '#17144D',
-    fontSize: 24,
-    width: '90%',
+    color: '#E8E8EA',
+    fontSize: responsiveScreenFontSize(3),
+    width: responsiveScreenWidth(80),
   },
   title2: {
-    textAlign: 'center',
-    fontSize: 30,
+    fontSize: responsiveScreenFontSize(4),
     marginVertical: 40,
-    width: '50%',
+    marginHorizontal: 20,
     color: '#17144D',
   },
   hearderText: {
     backgroundColor: '#206FAB',
-    width: '90%',
+    width: responsiveScreenWidth(80),
     color: '#fff',
     padding: 20,
+    fontSize: responsiveScreenFontSize(2),
   },
   icon: {
     textAlign: 'center',
