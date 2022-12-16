@@ -14,10 +14,10 @@ export default function App() {
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="Login" component={UserHome} />
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Admin" component={Admin} />
         <Stack.Screen name="Signup" component={SignUp} />
-        <Stack.Screen name="Userhome" component={Login} />
+        <Stack.Screen name="Userhome" component={UserHome} />
       </Stack.Navigator>
     </NavigationContainer>
   )
