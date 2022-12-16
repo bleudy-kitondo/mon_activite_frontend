@@ -1,3 +1,5 @@
+import AntDesign from '@expo/vector-icons/AntDesign'
+import { useState } from 'react'
 import {
   StyleSheet,
   Text,
@@ -7,28 +9,40 @@ import {
   Image,
 } from 'react-native'
 
-export default function admin() {
-  const loginAlert = () => {
-    alert('connexion reussie !')
-  }
+export default function Admin({ navigation }) {
+  const [name, setName] = useState(''),
+    [password, setPassword] = useState(''),
+    submit = () => {
+      alert(name + password)
+    }
   return (
     <View style={styles.container}>
       <View style={styles.hearder}>
         <Image
           style={styles.picture}
-          source={require('./assets/logo.jpg')}
+          source={require('../assets/logo.jpg')}
         />
         <Text style={styles.title}>
           Mon rapport d'activité de predication
         </Text>
       </View>
       <View>
-        <Text style={styles.title2}>Page Admin</Text>
+        <View style={{ flexDirection: 'row' }}>
+          <AntDesign
+            style={styles.icon}
+            name="left"
+            size={32}
+            color="#206FAB"
+            onPress={() => navigation.navigate('Login')}
+          />
+          <Text style={styles.title2}>Page admin</Text>
+        </View>
         <TextInput
           style={styles.input}
           placeholder="Nom d'utlisateur "
           placeholderTextColor="#17144D"
           maxLength={20}
+          onChangeText={text => setName(text)}
           // autoFocus
         />
         <TextInput
@@ -37,9 +51,10 @@ export default function admin() {
           style={styles.input}
           placeholderTextColor="#17144D"
           placeholder="Mot de passe"
+          onChangeText={text => setPassword(text)}
         />
         <View>
-          <Pressable onPress={loginAlert} style={styles.connexion}>
+          <Pressable onPress={submit} style={styles.connexion}>
             <Text style={styles.Pressablelogin}> Connexion</Text>
           </Pressable>
         </View>
@@ -47,10 +62,9 @@ export default function admin() {
       <View style={styles.footer}>
         <Image
           style={styles.picture}
-          source={require('./assets/jw.png')}
+          source={require('../assets/jw.png')}
         />
         <Text style={styles.hearderText}>
-          {' '}
           Copyright ©2022, by Bleudy TETE
         </Text>
       </View>
@@ -90,22 +104,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 40,
     marginVertical: 15,
   },
-  PressableCreate: {
-    color: '#fff',
-    fontSize: 14,
-    textAlign: 'center',
-  },
   Pressablelogin: {
     color: '#17144D',
     fontSize: 14,
     textAlign: 'center',
     fontWeight: 'bold',
-  },
-  paragraph: {
-    marginHorizontal: 40,
-    marginVertical: 15,
-    fontSize: 16,
-    color: '#17144D',
   },
   picture: {
     height: 66,
@@ -133,11 +136,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 30,
     marginVertical: 40,
+    width: '50%',
+    color: '#17144D',
   },
   hearderText: {
     backgroundColor: '#206FAB',
     width: '90%',
     color: '#fff',
     padding: 20,
+  },
+  icon: {
+    textAlign: 'center',
+    fontSize: 30,
+    marginVertical: 40,
+    width: '25%',
   },
 })

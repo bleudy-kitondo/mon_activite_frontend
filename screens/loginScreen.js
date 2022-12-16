@@ -1,30 +1,35 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  TextInput,
-  Image,
-} from 'react-native'
+import { useState } from 'react'
+import axios from 'axios'
+import { singInProclamair } from '../utils/endpoint'
+import { StyleSheet, Text, View, Pressable, TextInput, Image } from 'react-native'
 
-export default function login() {
-  const loginAlert = () => {
-    alert('login reussie !')
-  }
-  const signUpAlert = () => {
-    alert("patientez s'il vous plait !")
-  }
+export default function Login({ navigation }) {
+  const [userName, setUserName] = useState(''),
+    [password, setPassword] = useState(''),
+    longinProclamair = () => {
+      if (userName !== '' && password !== '') {
+        axios
+          .post(`${singInProclamair}`, {
+            userName,
+            password,
+          })
+          .then(data => {
+            // setPassword('')
+            // setUserName('')
+            alert(`connexion reussi`)
+            console.log(data.data.token)
+          })
+          .catch(err => alert(err))
+      } else {
+        alert('remplissez les champs vides svp')
+      }
+    }
 
   return (
     <View style={styles.container}>
       <View style={styles.hearder}>
-        <Image
-          style={styles.picture}
-          source={require('./assets/logo.jpg')}
-        />
-        <Text style={styles.title}>
-          Mon rapport d'activité de predication
-        </Text>
+        <Image style={styles.picture} source={require('../assets/logo.jpg')} />
+        <Text style={styles.title}>Mon rapport d'activité de predication</Text>
       </View>
       <View>
         <Text style={styles.title2}>Se connecter</Text>
@@ -32,36 +37,32 @@ export default function login() {
           style={styles.input}
           placeholderTextColor="#17144D"
           placeholder="Nom d'utlisateur "
-          maxLength={20}
+          maxLength={40}
+          onChangeText={text => setUserName(text)}
         />
         <TextInput
           style={styles.input}
           placeholder="Mot de passe"
           placeholderTextColor="#17144D"
           secureTextEntry
+          onChangeText={text => setPassword(text)}
           autoCorrect={false}
         />
         <View>
-          <Pressable onPress={loginAlert} style={styles.login}>
+          <Pressable onPress={longinProclamair} style={styles.login}>
             <Text style={styles.Pressablelogin}> Connexion</Text>
           </Pressable>
-          <Pressable onPress={signUpAlert} style={styles.create}>
-            <Text style={styles.PressableCreate}>
-              creer un compte
-            </Text>
+          <Pressable onPress={() => navigation.navigate('Signup')} style={styles.create}>
+            <Text style={styles.PressableCreate}>creer un compte</Text>
           </Pressable>
         </View>
       </View>
-      <Text style={styles.paragraph}>je suis un admin</Text>
+      <Text onPress={() => navigation.navigate('Admin')} style={styles.paragraph}>
+        je suis un admin
+      </Text>
       <View style={styles.footer}>
-        <Image
-          style={styles.picture}
-          source={require('./assets/jw.png')}
-        />
-        <Text style={styles.hearderText}>
-          {' '}
-          Copyright ©2022, by Bleudy TETE
-        </Text>
+        <Image style={styles.picture} source={require('../assets/jw.png')} />
+        <Text style={styles.hearderText}> Copyright ©2022, by Bleudy TETE</Text>
       </View>
     </View>
   )
@@ -69,6 +70,7 @@ export default function login() {
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#fff',
@@ -124,7 +126,7 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: 'row',
     width: '100%',
-    marginTop: '57%',
+    marginTop: '56%',
   },
   hearder: {
     flexDirection: 'row',
@@ -143,6 +145,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 30,
     marginVertical: 40,
+    color: '#17144D',
   },
   hearderText: {
     backgroundColor: '#206FAB',
