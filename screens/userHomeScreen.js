@@ -5,21 +5,32 @@ import {
   MaterialIcons,
   Feather,
 } from '@expo/vector-icons'
+// import { data } from '../data'
 import {
   responsiveScreenHeight,
   responsiveScreenWidth,
   responsiveScreenFontSize,
 } from 'react-native-responsive-dimensions'
-import { View, Button, TextInput, StyleSheet, Text, Pressable, Image } from 'react-native'
+import {
+  View,
+  Button,
+  TextInput,
+  StyleSheet,
+  Text,
+  Pressable,
+  Image,
+  FlatList,
+} from 'react-native'
 
 export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.hearder}>
-        {/* <View>
-          <Image style={styles.picture} source={require('../assets/defaultProfil.png')} />
+        <Image style={styles.picture} source={require('../assets/defaultProfil.png')} />
+        <View>
+          <Text style={styles.userData}>Bleudy kitondo</Text>
+          <Text style={styles.userData}>groupe de predication : 1</Text>
         </View>
-        <View></View> */}
       </View>
       <View style={styles.body}>
         <View>
@@ -28,12 +39,17 @@ export default function Home({ navigation }) {
             <Feather name="filter" size={24} color="#17144D" />
           </View>
           <View style={styles.input}>
-            <TextInput placeholder="Recherche par mois" placeholderTextColor="#17144D" />
+            <TextInput
+              style={styles.input_text}
+              placeholder="Recherche par mois"
+              placeholderTextColor="#17144D"
+            />
             <Pressable>
               <Feather name="search" size={24} color="#17144D" />
             </Pressable>
           </View>
         </View>
+        <View></View>
       </View>
       <View style={styles.footer}>
         <Pressable
@@ -89,15 +105,13 @@ const styles = StyleSheet.create({
   input: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 40,
+    marginHorizontal: responsiveScreenWidth(4),
     backgroundColor: '#fff',
-    marginVertical: 15,
     borderWidth: 1,
     borderColor: '#17144D',
     padding: 15,
     color: '#17144D',
     borderRadius: 20,
-    fontSize: responsiveScreenFontSize(2),
   },
   footer: {
     flexDirection: 'row',
@@ -115,9 +129,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   picture: {
-    height: responsiveScreenHeight(8),
-    width: responsiveScreenWidth(17),
+    height: 50,
+    width: 50,
     borderRadius: 100,
+    marginHorizontal: responsiveScreenWidth(4),
   },
   title: {
     flexDirection: 'row',
@@ -126,4 +141,12 @@ const styles = StyleSheet.create({
     marginVertical: responsiveScreenHeight(4),
   },
   title_text: { color: '#17144D', fontSize: responsiveScreenFontSize(3) },
+  input_text: {
+    fontSize: responsiveScreenFontSize(2),
+  },
+  userData: {
+    fontSize: responsiveScreenFontSize(2),
+    color: '#fff',
+    fontWeight: 'bold',
+  },
 })
