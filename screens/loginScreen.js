@@ -34,7 +34,7 @@ export default function Login({ navigation }) {
     <View style={styles.container}>
       <View style={styles.hearder}>
         <Image style={styles.picture} source={require('../assets/logo1.png')} />
-        <Text style={styles.title}>Mon rapport d'activité de predication</Text>
+        <Text style={styles.title}>Mon activité de predication</Text>
       </View>
       <View style={styles.body}>
         <Text style={styles.title2}>Se connecter</Text>
@@ -66,8 +66,7 @@ export default function Login({ navigation }) {
         </Text>
       </View>
       <View style={styles.footer}>
-        <Image style={styles.picture} source={require('../assets/jw.png')} />
-        <Text style={styles.hearderText}> Copyright ©2022, by Bleudy TETE</Text>
+        <Text style={styles.copyright}> Copyright ©2022, by Bleudy TETE</Text>
       </View>
     </View>
   )
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginHorizontal: 40,
-    backgroundColor:"#fff",
+    backgroundColor: '#fff',
     marginVertical: 15,
     borderWidth: 1,
     borderColor: '#17144D',
@@ -133,21 +132,21 @@ const styles = StyleSheet.create({
   },
   footer: {
     flexDirection: 'row',
-    height: responsiveScreenHeight(9),
+    height: responsiveScreenHeight(7),
     width: responsiveScreenWidth(100),
   },
   hearder: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: responsiveScreenHeight(3.2),
-    padding: responsiveScreenHeight(2),
+    paddingTop: responsiveScreenHeight(4),
+    padding: responsiveScreenHeight(1),
     backgroundColor: '#206FAB',
     height: responsiveScreenHeight(12),
     width: responsiveScreenWidth(100),
   },
   body: {
-    height: responsiveScreenHeight(79),
+    height: responsiveScreenHeight(81),
     width: responsiveScreenWidth(100),
   },
   title: {
@@ -161,11 +160,12 @@ const styles = StyleSheet.create({
     marginVertical: 40,
     color: '#17144D',
   },
-  hearderText: {
+  copyright: {
     backgroundColor: '#206FAB',
-    width: responsiveScreenWidth(80),
+    width: responsiveScreenWidth(100),
     color: '#fff',
     padding: 20,
-    fontSize: responsiveScreenFontSize(2),
+    textAlign: 'center',
+    fontSize: responsiveScreenFontSize(1.7),
   },
 })
