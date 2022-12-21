@@ -137,7 +137,7 @@ export default function SignUp({ navigation }) {
     <View style={styles.container}>
       <View style={styles.hearder}>
         <Image style={styles.picture} source={require('../assets/logo1.png')} />
-        <Text style={styles.title}>Mon rapport d'activité de predication</Text>
+        <Text style={styles.title}>Mon activité de predication</Text>
       </View>
       <SafeAreaView style={styles.body}>
         <ScrollView>
@@ -255,8 +255,7 @@ export default function SignUp({ navigation }) {
         </ScrollView>
       </SafeAreaView>
       <View style={styles.footer}>
-        <Image style={styles.picture} source={require('../assets/jw.png')} />
-        <Text style={styles.hearderText}> Copyright ©2022, by Bleudy TETE</Text>
+        <Text style={styles.copyright}> Copyright ©2022, by Bleudy TETE</Text>
       </View>
     </View>
   )
@@ -316,7 +315,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     flexDirection: 'row',
-    height: responsiveScreenHeight(9),
+    height: responsiveScreenHeight(7),
     width: responsiveScreenWidth(100),
   },
   hearder: {
@@ -324,7 +323,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingTop: responsiveScreenHeight(3.2),
-    padding: responsiveScreenHeight(2),
+    padding: responsiveScreenHeight(1),
     backgroundColor: '#206FAB',
     height: responsiveScreenHeight(12),
     width: responsiveScreenWidth(100),
@@ -340,12 +339,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     color: '#17144D',
   },
-  hearderText: {
+  copyright: {
     backgroundColor: '#206FAB',
-    width: responsiveScreenWidth(80),
+    width: responsiveScreenWidth(100),
+    textAlign: 'center',
     color: '#fff',
     padding: 20,
-    fontSize: responsiveScreenFontSize(2),
+    fontSize: responsiveScreenFontSize(1.7),
   },
   containerProfil: {
     position: 'relative',
@@ -369,7 +369,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   body: {
-    height: responsiveScreenHeight(79),
+    height: responsiveScreenHeight(81),
     width: responsiveScreenWidth(100),
   },
   secondPart: {

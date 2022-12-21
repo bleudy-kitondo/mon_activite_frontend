@@ -7,12 +7,12 @@ import {
 } from 'react-native-responsive-dimensions'
 import { View, Button, TextInput, StyleSheet, Text, Pressable } from 'react-native'
 
-export default function Home({ navigation }) {
+export default function Send({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.hearder}></View>
       <View style={styles.body}>
-        <Text> home</Text>
+        <Text> send</Text>
       </View>
       <View style={styles.footer}>
         <Pressable

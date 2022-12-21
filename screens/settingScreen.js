@@ -5,14 +5,14 @@ import {
   responsiveScreenWidth,
   responsiveScreenFontSize,
 } from 'react-native-responsive-dimensions'
-import { View, Button, TextInput, StyleSheet, Text, Pressable } from 'react-native'
+import { View, Button, TextInput, StyleSheet, Text,Pressable } from 'react-native'
 
-export default function Home({ navigation }) {
+export default function Setting({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.hearder}></View>
       <View style={styles.body}>
-        <Text> home</Text>
+        <Text> setting</Text>
       </View>
       <View style={styles.footer}>
         <Pressable
