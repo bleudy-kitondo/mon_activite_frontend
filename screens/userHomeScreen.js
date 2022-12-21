@@ -1,18 +1,39 @@
 // import React, { useState } from 'react'
-import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import {
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+  Feather,
+} from '@expo/vector-icons'
 import {
   responsiveScreenHeight,
   responsiveScreenWidth,
   responsiveScreenFontSize,
 } from 'react-native-responsive-dimensions'
-import { View, Button, TextInput, StyleSheet, Text, Pressable } from 'react-native'
+import { View, Button, TextInput, StyleSheet, Text, Pressable, Image } from 'react-native'
 
 export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
-      <View style={styles.hearder}></View>
+      <View style={styles.hearder}>
+        {/* <View>
+          <Image style={styles.picture} source={require('../assets/defaultProfil.png')} />
+        </View>
+        <View></View> */}
+      </View>
       <View style={styles.body}>
-        <Text> home</Text>
+        <View>
+          <View style={styles.title}>
+            <Text style={styles.title_text}>Tes Rapports</Text>
+            <Feather name="filter" size={24} color="#17144D" />
+          </View>
+          <View style={styles.input}>
+            <TextInput placeholder="Recherche par mois" placeholderTextColor="#17144D" />
+            <Pressable>
+              <Feather name="search" size={24} color="#17144D" />
+            </Pressable>
+          </View>
+        </View>
       </View>
       <View style={styles.footer}>
         <Pressable
@@ -37,7 +58,7 @@ export default function Home({ navigation }) {
           onPress={() => navigation.navigate('Setting')}
           style={styles.containerIcon}>
           <MaterialIcons name="settings" size={30} color="#E8E8EA" />
-          <Text style={styles.text}>Parametre</Text>
+          <Text style={styles.text}>Parametres</Text>
         </Pressable>
       </View>
     </View>
@@ -52,13 +73,31 @@ const styles = StyleSheet.create({
     width: responsiveScreenWidth(100),
   },
   hearder: {
-    height: responsiveScreenHeight(12),
-    backgroundColor: 'red',
     backgroundColor: '#206FAB',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: responsiveScreenHeight(4),
+    padding: responsiveScreenHeight(1),
+    height: responsiveScreenHeight(12),
+    width: responsiveScreenWidth(100),
   },
   body: {
     height: responsiveScreenHeight(79),
     backgroundColor: '#fff',
+  },
+  input: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 40,
+    backgroundColor: '#fff',
+    marginVertical: 15,
+    borderWidth: 1,
+    borderColor: '#17144D',
+    padding: 15,
+    color: '#17144D',
+    borderRadius: 20,
+    fontSize: responsiveScreenFontSize(2),
   },
   footer: {
     flexDirection: 'row',
@@ -75,4 +114,16 @@ const styles = StyleSheet.create({
   containerIcon: {
     alignItems: 'center',
   },
+  picture: {
+    height: responsiveScreenHeight(8),
+    width: responsiveScreenWidth(17),
+    borderRadius: 100,
+  },
+  title: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: responsiveScreenWidth(4),
+    marginVertical: responsiveScreenHeight(4),
+  },
+  title_text: { color: '#17144D', fontSize: responsiveScreenFontSize(3) },
 })
