@@ -5,12 +5,18 @@ import {
   responsiveScreenWidth,
   responsiveScreenFontSize,
 } from 'react-native-responsive-dimensions'
-import { View, Button, TextInput, StyleSheet, Text, Pressable } from 'react-native'
+import { View, Button, TextInput, StyleSheet, Text, Pressable, Image } from 'react-native'
 
 export default function Send({ navigation }) {
   return (
     <View style={styles.container}>
-      <View style={styles.hearder}></View>
+      <View style={styles.hearder}>
+        <Image style={styles.picture} source={require('../assets/defaultProfil.png')} />
+        <View>
+          <Text style={styles.userData}>Bleudy kitondo</Text>
+          <Text style={styles.userData}>groupe de predication : 1</Text>
+        </View>
+      </View>
       <View style={styles.body}>
         <Text> send</Text>
       </View>
@@ -52,9 +58,14 @@ const styles = StyleSheet.create({
     width: responsiveScreenWidth(100),
   },
   hearder: {
-    height: responsiveScreenHeight(12),
-    backgroundColor: 'red',
     backgroundColor: '#206FAB',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: responsiveScreenHeight(4),
+    padding: responsiveScreenHeight(1),
+    height: responsiveScreenHeight(12),
+    width: responsiveScreenWidth(100),
   },
   body: {
     height: responsiveScreenHeight(79),
@@ -74,5 +85,16 @@ const styles = StyleSheet.create({
   },
   containerIcon: {
     alignItems: 'center',
+  },
+  picture: {
+    height: 50,
+    width: 50,
+    borderRadius: 100,
+    marginHorizontal: responsiveScreenWidth(4),
+  },
+  userData: {
+    fontSize: responsiveScreenFontSize(2),
+    color: '#fff',
+    fontWeight: 'bold',
   },
 })

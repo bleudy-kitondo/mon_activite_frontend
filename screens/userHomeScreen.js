@@ -1,18 +1,67 @@
 // import React, { useState } from 'react'
-import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import {
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+  Feather,
+} from '@expo/vector-icons'
+import storage from '../utils/storage'
 import {
   responsiveScreenHeight,
   responsiveScreenWidth,
   responsiveScreenFontSize,
 } from 'react-native-responsive-dimensions'
-import { View, Button, TextInput, StyleSheet, Text, Pressable } from 'react-native'
+import {
+  View,
+  Button,
+  TextInput,
+  StyleSheet,
+  Text,
+  Pressable,
+  Image,
+  FlatList,
+} from 'react-native'
+import { useState } from 'react'
 
 export default function Home({ navigation }) {
+  const [name, setName] = useState(''),
+    [lastName, setLastName] = useState('')
+  storage
+    .load({
+      key: 'login',
+    })
+    .then(data => {
+      setName(data[0].name)
+      setLastName(data[0].lastName)
+    })
+
   return (
     <View style={styles.container}>
-      <View style={styles.hearder}></View>
+      <View style={styles.hearder}>
+        <Image style={styles.picture} source={require('../assets/defaultProfil.png')} />
+        <View>
+          <Text style={styles.userData}>{`${name} ${lastName}`}</Text>
+          <Text style={styles.userData}>groupe de predication : 1</Text>
+        </View>
+      </View>
       <View style={styles.body}>
-        <Text> home</Text>
+        <View>
+          <View style={styles.title}>
+            <Text style={styles.title_text}>Tes Rapports</Text>
+            <Feather name="filter" size={24} color="#17144D" />
+          </View>
+          <View style={styles.input}>
+            <TextInput
+              style={styles.input_text}
+              placeholder="Recherche par mois"
+              placeholderTextColor="#17144D"
+            />
+            <Pressable>
+              <Feather name="search" size={24} color="#17144D" />
+            </Pressable>
+          </View>
+        </View>
+        <View></View>
       </View>
       <View style={styles.footer}>
         <Pressable
@@ -37,7 +86,7 @@ export default function Home({ navigation }) {
           onPress={() => navigation.navigate('Setting')}
           style={styles.containerIcon}>
           <MaterialIcons name="settings" size={30} color="#E8E8EA" />
-          <Text style={styles.text}>Parametre</Text>
+          <Text style={styles.text}>Parametres</Text>
         </Pressable>
       </View>
     </View>
@@ -52,13 +101,29 @@ const styles = StyleSheet.create({
     width: responsiveScreenWidth(100),
   },
   hearder: {
-    height: responsiveScreenHeight(12),
-    backgroundColor: 'red',
     backgroundColor: '#206FAB',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: responsiveScreenHeight(4),
+    padding: responsiveScreenHeight(1),
+    height: responsiveScreenHeight(12),
+    width: responsiveScreenWidth(100),
   },
   body: {
     height: responsiveScreenHeight(79),
     backgroundColor: '#fff',
+  },
+  input: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: responsiveScreenWidth(4),
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#17144D',
+    padding: 15,
+    color: '#17144D',
+    borderRadius: 20,
   },
   footer: {
     flexDirection: 'row',
@@ -74,5 +139,26 @@ const styles = StyleSheet.create({
   },
   containerIcon: {
     alignItems: 'center',
+  },
+  picture: {
+    height: 50,
+    width: 50,
+    borderRadius: 100,
+    marginHorizontal: responsiveScreenWidth(4),
+  },
+  title: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: responsiveScreenWidth(4),
+    marginVertical: responsiveScreenHeight(4),
+  },
+  title_text: { color: '#17144D', fontSize: responsiveScreenFontSize(3) },
+  input_text: {
+    fontSize: responsiveScreenFontSize(2),
+  },
+  userData: {
+    fontSize: responsiveScreenFontSize(2),
+    color: '#fff',
+    fontWeight: 'bold',
   },
 })

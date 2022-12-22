@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
+import storage from '../utils/storage'
 import { singInProclamair } from '../utils/endpoint'
 import { StyleSheet, Text, View, Pressable, TextInput, Image } from 'react-native'
 import {
@@ -19,8 +20,20 @@ export default function Login({ navigation }) {
             password,
           })
           .then(data => {
+            storage.save({
+              key: 'login',
+              data: [
+                {
+                  name: data.data.name,
+                  lastName: data.data.lastName,
+                  token: data.data.token.split(' ')[1],
+                },
+              ],
+            })
             // setPassword('')
             // setUserName('')
+            // localStorage.setItem('data', data.data.userName)
+            navigation.navigate('Userhome')
             alert(`connexion reussi`)
             console.log(data.data.token)
           })
