@@ -5,7 +5,7 @@ import {
   MaterialIcons,
   Feather,
 } from '@expo/vector-icons'
-// import { data } from '../data'
+import storage from '../utils/storage'
 import {
   responsiveScreenHeight,
   responsiveScreenWidth,
@@ -21,14 +21,26 @@ import {
   Image,
   FlatList,
 } from 'react-native'
+import { useState } from 'react'
 
 export default function Home({ navigation }) {
+  const [name, setName] = useState(''),
+    [lastName, setLastName] = useState('')
+  storage
+    .load({
+      key: 'login',
+    })
+    .then(data => {
+      setName(data[0].name)
+      setLastName(data[0].lastName)
+    })
+
   return (
     <View style={styles.container}>
       <View style={styles.hearder}>
         <Image style={styles.picture} source={require('../assets/defaultProfil.png')} />
         <View>
-          <Text style={styles.userData}>Bleudy kitondo</Text>
+          <Text style={styles.userData}>{`${name} ${lastName}`}</Text>
           <Text style={styles.userData}>groupe de predication : 1</Text>
         </View>
       </View>
