@@ -5,15 +5,27 @@ import {
   responsiveScreenWidth,
   responsiveScreenFontSize,
 } from 'react-native-responsive-dimensions'
+import storage from '../utils/storage'
 import { View, Button, TextInput, StyleSheet, Text, Pressable, Image } from 'react-native'
+import { useState } from 'react'
 
 export default function Setting({ navigation }) {
+  const [name, setname] = useState(''),
+    [lastName, setUserName] = useState('')
+  storage
+    .load({
+      key: 'login',
+    })
+    .then(data => {
+      setname(data[0].name)
+      setUserName(data[0].lastName)
+    })
   return (
     <View style={styles.container}>
       <View style={styles.hearder}>
         <Image style={styles.picture} source={require('../assets/defaultProfil.png')} />
         <View>
-          <Text style={styles.userData}>Bleudy kitondo</Text>
+          <Text style={styles.userData}>{`${name} ${lastName}`} </Text>
           <Text style={styles.userData}>groupe de predication : 1</Text>
         </View>
       </View>

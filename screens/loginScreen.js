@@ -12,6 +12,8 @@ import {
 export default function Login({ navigation }) {
   const [userName, setUserName] = useState(''),
     [password, setPassword] = useState(''),
+    [succes, setSucces] = useState(''),
+    // [error, setError] = useState(''),
     longinProclamair = () => {
       if (userName !== '' && password !== '') {
         axios
@@ -19,23 +21,25 @@ export default function Login({ navigation }) {
             userName,
             password,
           })
-          .then(data => {
+          .then(result => {
+            setSucces(result.data.message)
+            const data = result.data
             storage.save({
               key: 'login',
               data: [
                 {
                   name: data.data.name,
                   lastName: data.data.lastName,
+                  numberOfCongreg: data.data.numberOfCongreg,
+                  id: data.data.id,
+                  picture: data.data.picture,
                   token: data.data.token.split(' ')[1],
                 },
               ],
             })
-            // setPassword('')
-            // setUserName('')
-            // localStorage.setItem('data', data.data.userName)
-            navigation.navigate('Userhome')
-            alert(`connexion reussi`)
-            console.log(data.data.token)
+            setTimeout(() => {
+              navigation.navigate('Userhome')
+            }, 2000)
           })
           .catch(err => alert(err))
       } else {
@@ -49,6 +53,7 @@ export default function Login({ navigation }) {
         <Image style={styles.picture} source={require('../assets/logo1.png')} />
         <Text style={styles.title}>Mon activité de predication</Text>
       </View>
+      {succes ? <Text style={styles.succes}>{succes}</Text> : null}
       <View style={styles.body}>
         <Text style={styles.title2}>Se connecter</Text>
         <TextInput
@@ -180,5 +185,18 @@ const styles = StyleSheet.create({
     padding: 20,
     textAlign: 'center',
     fontSize: responsiveScreenFontSize(1.7),
+  },
+  succes: {
+    position: 'absolute',
+    width: responsiveScreenWidth(50),
+    height: responsiveScreenHeight(15),
+    backgroundColor: 'green',
+    color: '#fff',
+    alignSelf: 'center',
+    marginVertical: responsiveScreenHeight(40),
+    zIndex: '1',
+    textAlign: 'center',
+    fontSize: responsiveScreenFontSize(2.5),
+    paddingTop: responsiveScreenHeight(6),
   },
 })
