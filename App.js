@@ -5,6 +5,7 @@ import UserHome from './screens/userHomeScreen'
 import Setting from './screens/settingScreen'
 import Group from './screens/groupScreen'
 import Send from './screens/sendSreen'
+import Mois from './screens/test'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
