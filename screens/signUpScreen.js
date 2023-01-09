@@ -3,6 +3,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker'
 import { MaterialIcons } from '@expo/vector-icons'
 import * as ImagePicker from 'expo-image-picker'
 import { createProclamair } from '../utils/endpoint'
+import { cloudinary } from '../utils/endpoint'
 import {
   responsiveScreenHeight,
   responsiveScreenWidth,
@@ -41,6 +42,7 @@ export default function SignUp({ navigation }) {
     [birthYear, setBirthYear] = useState(''),
     [baptismalYear, setBaptismalYear] = useState(''),
     [picture, setPicture] = useState(require('../assets/defaultProfil.png')),
+    [image, setImage] = useState(require('../assets/defaultProfil.png')),
     [DatePickerVisibleBirthYear, setDatePickerVisibilityBirthYear] = useState(false),
     [DatePickerVisibleBaptismalYear, setDatePickerVisibilityBaptismalYear] =
       useState(false),
@@ -58,6 +60,7 @@ export default function SignUp({ navigation }) {
     CheckPlatform()
   }, [])
 
+  // console.log('iamge', image)
   let tempBirthYear = new Date(birthYear),
     tempBaptismalYear = new Date(baptismalYear),
     formatBirthYear =
@@ -93,45 +96,70 @@ export default function SignUp({ navigation }) {
     },
     openGallery = async () => {
       let result = await ImagePicker.launchImageLibraryAsync(options)
-      if (!result.canceled) setPicture({ uri: result.assets[0].uri })
-    }
-
-  function submit() {
-    if (
-      userName !== '' &&
-      password !== '' &&
-      numberOfCongreg !== '' &&
-      name !== '' &&
-      lastName !== '' &&
-      sex !== '' &&
-      confirmPassword !== ''
-    ) {
-      if (password === confirmPassword) {
-        axios
-          .post(`${createProclamair}`, {
-            userName,
-            password,
-            numberOfCongreg,
-            name,
-            lastName,
-            phoneNumber,
-            baptismalYear: formatBaptismalYear,
-            birthYear: formatBirthYear,
-            sex,
-            picture: 'test',
-          })
-          .then(data => {
-            alert(data.data.message)
-            navigation.navigate('Userhome')
-          })
-          .catch(err => console.log(`err: ${err}`))
-      } else {
-        alert('mot de passe different')
+      if (!result.canceled) {
+        console.log('result', result.assets[0].uri)
+        setImage(result.assets[0].uri)
+        setPicture({ uri: result.assets[0].uri })
       }
-    } else {
-      alert('remplissez le champ vide')
+    },
+    uploadCloudinary = async () => {
+      const data = new FormData()
+      data.append('file', image)
+      data.append('upload_preset', 'mon_activiteApp')
+      data.append('cloud_name', 'davr0i2ga')
+      console.log('data', data)
+      await fetch(`${cloudinary}`, {
+        method: 'post',
+        body: data,
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log('data json', data)
+        })
+      // .then(res => {
+      //   // console.log('resultat', res)
+      //   alert('succes')
+      // })
+      // .catch(err => alert(err))
     }
-  }
+  // console.log('image',image)
+
+  // function submit() {
+  //   if (
+  //     userName !== '' &&
+  //     password !== '' &&
+  //     numberOfCongreg !== '' &&
+  //     name !== '' &&
+  //     lastName !== '' &&
+  //     sex !== '' &&
+  //     confirmPassword !== ''
+  //   ) {
+  //     if (password === confirmPassword) {
+  //       axios
+  //         .post(`${createProclamair}`, {
+  //           userName,
+  //           password,
+  //           numberOfCongreg,
+  //           name,
+  //           lastName,
+  //           phoneNumber,
+  //           baptismalYear: formatBaptismalYear,
+  //           birthYear: formatBirthYear,
+  //           sex,
+  //           picture: 'test',
+  //         })
+  //         .then(data => {
+  //           alert(data.data.message)
+  //           navigation.navigate('Userhome')
+  //         })
+  //         .catch(err => console.log(`err: ${err}`))
+  //     } else {
+  //       alert('mot de passe different')
+  //     }
+  //   } else {
+  //     alert('remplissez le champ vide')
+  //   }
+  // }
 
   return (
     <View style={styles.container}>
@@ -248,7 +276,7 @@ export default function SignUp({ navigation }) {
               </Text>
               <MaterialIcons name="date-range" size={30} color="#17144D" />
             </Pressable>
-            <Pressable onPress={submit} style={styles.create}>
+            <Pressable onPress={uploadCloudinary} style={styles.create}>
               <Text style={styles.PressableCreate}>Inscription</Text>
             </Pressable>
           </View>
