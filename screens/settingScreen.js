@@ -8,6 +8,7 @@ import {
 import storage from '../utils/storage'
 import { View, Button, TextInput, StyleSheet, Text, Pressable, Image } from 'react-native'
 import { useState } from 'react'
+import { NativeScreenNavigationContainer } from 'react-native-screens'
 
 export default function Setting({ navigation }) {
   const [name, setname] = useState(''),
@@ -20,6 +21,7 @@ export default function Setting({ navigation }) {
       setname(data[0].name)
       setUserName(data[0].lastName)
     })
+
   return (
     <View style={styles.container}>
       <View style={styles.hearder}>

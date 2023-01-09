@@ -44,8 +44,9 @@ export default function Send({ navigation }) {
           course,
           note,
         })
-        .then(() => {
-          alert('succes')
+        .then(data => {
+          console.log(data.data.message)
+          alert(data.data.message)
         })
     } else {
       alert("la date ou le mois ou l'année est vide")
