@@ -231,6 +231,7 @@ const styles = StyleSheet.create({
   },
   containerIcon: {
     alignItems: 'center',
+    marginHorizontal: responsiveScreenWidth(4),
   },
   PressableSend: {
     color: '#fff',

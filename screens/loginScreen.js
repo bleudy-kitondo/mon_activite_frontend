@@ -10,11 +10,9 @@ import {
 } from 'react-native-responsive-dimensions'
 
 export default function Login({ navigation }) {
-
   const [userName, setUserName] = useState(''),
     [password, setPassword] = useState(''),
     [succes, setSucces] = useState(''),
-    // [error, setError] = useState(''),
     longinProclamair = () => {
       if (userName !== '' && password !== '') {
         axios
@@ -35,6 +33,7 @@ export default function Login({ navigation }) {
                   id: data.data.id,
                   picture: data.data.picture,
                   token: data.data.token.split(' ')[1],
+                  groupId: data.data.groupId,
                 },
               ],
             })

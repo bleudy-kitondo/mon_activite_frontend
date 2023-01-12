@@ -6,3 +6,5 @@ export const singinAdmin = `${api}/admin/singin`
 export const cloudinary = 'https://api.cloudinary.com/v1_1/davr0i2ga/image/upload'
 export const createReport = `${api}/report/create`
 export const findreport = `${api}/report/proclamair`
+export const findGroup = `${api}/group/search`
+export const congregationFindOne = `${api}/congregation/findone`

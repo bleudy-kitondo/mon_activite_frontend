@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
   },
   containerIcon: {
     alignItems: 'center',
+    marginHorizontal: responsiveScreenWidth(4),
   },
   picture: {
     height: 50,

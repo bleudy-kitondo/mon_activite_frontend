@@ -19,7 +19,6 @@ import {
   Text,
   Pressable,
   Image,
-  FlatList,
   ScrollView,
   SafeAreaView,
 } from 'react-native'
@@ -28,24 +27,28 @@ import axios from 'axios'
 export default function Home({ navigation }) {
   const [name, setName] = useState(''),
     [lastName, setLastName] = useState(''),
+    [id, setId] = useState(''),
     [report, setReport] = useState([]),
+    [group, setGroup] = useState(''),
     reportReverse = report.reverse()
-  storage
-    .load({
-      key: 'login',
-    })
-    .then(data => {
-      setName(data[0].name)
-      setLastName(data[0].id)
-    })
+
   useEffect(() => {
-    axios
-      .get(`${findreport}/${lastName}`)
-      .then(result => {
-        setReport(result.data)
+    storage
+      .load({
+        key: 'login',
       })
-      .catch(err => console.log(err))
-  })
+      .then(data => {
+        axios
+          .get(`${findreport}/${data[0].id}`)
+          .then(result => {
+            setReport(result.data)
+          })
+          .catch(err => console.log(err))
+        setName(data[0].name)
+        setLastName(data[0].lastName)
+        setId(data[0].id)
+      })
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -91,7 +94,13 @@ export default function Home({ navigation }) {
       <View style={styles.footer}>
         <Pressable
           onPress={() => {
-            navigation.navigate('Userhome')
+            axios
+              .get(`${findreport}/${id}`)
+              .then(result => {
+                navigation.navigate('Userhome')
+                setReport(result.data)
+              })
+              .catch(err => console.log(err))
           }}
           style={styles.containerIcon}>
           <Ionicons name="ios-home-sharp" size={30} color="#E8E8EA" />
@@ -167,6 +176,7 @@ const styles = StyleSheet.create({
   },
   containerIcon: {
     alignItems: 'center',
+    marginHorizontal: responsiveScreenWidth(4),
   },
   picture: {
     height: 50,
